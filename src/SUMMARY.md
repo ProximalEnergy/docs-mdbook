@@ -9,7 +9,7 @@
 - [KPI Overview](./kpi/kpi_overview.md)
 
 # PV Performance Modeling
-- [PV Model Overview](.pv_performance/pv_model_overview.md)
+- [PV Model Overview](./pv_performance/pv_model_overview.md)
   - [Plane of Array Irradiance](./pv_performance/poai/plane_of_array_irradiance.md)
     - [Solar Position](./pv_performance/poai/solar_position.md)
     - [Extraterrestrial DNI](./pv_performance/poai/extraterrestrial_dni.md)
