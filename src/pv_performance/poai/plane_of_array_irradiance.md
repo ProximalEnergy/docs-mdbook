@@ -7,23 +7,60 @@ The Plane of Array Irradiance (POAI) is the amount of irradiance that is inciden
 This section of the documentation explains all of the different models and sub-models required to calculate POAI in the order that they are calculated in the simulation.
 
 ## Acronyms:
-- **DNI**: Direct Normal Irradiance
-- **DHI**:  Diffuse Horizontal Irradiance
-- **POAI**: Plane of Array Irradiance
+- Irradiance
+  - **DNI**: Direct Normal Irradiance
+  - **extraDNI**: Extraterrestrial Direct Normal Irradiance
+  - **DHI**:  Diffuse Horizontal Irradiance
+  - **POAI**: Plane of Array Irradiance
+- Meteorological
+ - **RH**: Relative Humidity
 
-## Steps to Calculate POAI
+```mermaid
+classDiagram
+    System : latitude
+    System : longitude
+    System : elevation
+    System : albedo
 
-| Step | Algorithm |
-|------|-----------|
-| 1    | Calculate Site Pressure |
-| 2    | Calculate Solar Position |
-| 3    | Calculate Air Mass |
-| 4    | Calculate Extraterrestrial DNI |
-| 5    | Calculate DNI |
-| 6    | Calculate DHI |
-| 7    | Calculate Irradiance Reflected onto Front Face |
-| 8    | Calculate Horizon Loss |
-| 9    | Calculate Tracker Rotation Angles |
+    Met Station: time
+    Met Station: global horizontal irradiance
+    Met Station: relative humidity
+    Met Station: ambient temperature
+
+    System --> Site Pressure
+    Site Pressure: site pressure
+    Site Pressure: portland_state_aerospace_society()
+
+    System --> Solar Position
+    Met Station --> Solar Position
+    Solar Position: apparent zenith
+    Solar Position: azimuth
+    Solar Position: zenith
+    Solar Position: nrel_2008()
+
+    Solar Position --> Airmass
+    Airmass: airmass
+
+    Met Station --> Extraterrestrial DNI
+    Extraterrestrial DNI: extraDNI
+    Extraterrestrial DNI: spencer()
+
+    Met Station --> Dew Point
+    Dew Point: dew point temperature
+    Dew Point: magnus_tetens()
+
+    Met Station --> Decomposition Model
+    Solar Position --> Decomposition Model
+    Site Pressure --> Decomposition Model
+    Dew Point --> Decomposition Model
+    Decomposition Model: direct normal irradiance
+    Decomposition Model: dirint()
+
+    Met Station --> Geometric Model
+    Decomposition Model --> Geometric Model
+    Geometric Model: diffuse horizontal irradiance
+
+```
 
 
 ## Edits and Additions

@@ -3,3 +3,9 @@ authors = ["Kurt Rhee"]
 language = "en"
 multilingual = false
 src = "src"
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
+[output.html]
+additional-js = ["mermaid.min.js", "mermaid-init.js"]

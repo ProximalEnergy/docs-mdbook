@@ -198,23 +198,62 @@
 <p>This section of the documentation explains all of the different models and sub-models required to calculate POAI in the order that they are calculated in the simulation.</p>
 <h2 id="acronyms"><a class="header" href="#acronyms">Acronyms:</a></h2>
 <ul>
+<li>Irradiance
+<ul>
 <li><strong>DNI</strong>: Direct Normal Irradiance</li>
+<li><strong>extraDNI</strong>: Extraterrestrial Direct Normal Irradiance</li>
 <li><strong>DHI</strong>:  Diffuse Horizontal Irradiance</li>
 <li><strong>POAI</strong>: Plane of Array Irradiance</li>
 </ul>
-<h2 id="steps-to-calculate-poai"><a class="header" href="#steps-to-calculate-poai">Steps to Calculate POAI</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Step</th><th>Algorithm</th></tr></thead><tbody>
-<tr><td>1</td><td>Calculate Site Pressure</td></tr>
-<tr><td>2</td><td>Calculate Solar Position</td></tr>
-<tr><td>3</td><td>Calculate Air Mass</td></tr>
-<tr><td>4</td><td>Calculate Extraterrestrial DNI</td></tr>
-<tr><td>5</td><td>Calculate DNI</td></tr>
-<tr><td>6</td><td>Calculate DHI</td></tr>
-<tr><td>7</td><td>Calculate Irradiance Reflected onto Front Face</td></tr>
-<tr><td>8</td><td>Calculate Horizon Loss</td></tr>
-<tr><td>9</td><td>Calculate Tracker Rotation Angles</td></tr>
-</tbody></table>
-</div>
+</li>
+<li>Meteorological</li>
+<li><strong>RH</strong>: Relative Humidity</li>
+</ul>
+<pre class="mermaid">classDiagram
+    System : latitude
+    System : longitude
+    System : elevation
+    System : albedo
+
+    Met Station: time
+    Met Station: global horizontal irradiance
+    Met Station: relative humidity
+    Met Station: ambient temperature
+
+    System --&gt; Site Pressure
+    Site Pressure: site pressure
+    Site Pressure: portland_state_aerospace_society()
+
+    System --&gt; Solar Position
+    Met Station --&gt; Solar Position
+    Solar Position: apparent zenith
+    Solar Position: azimuth
+    Solar Position: zenith
+    Solar Position: nrel_2008()
+
+    Solar Position --&gt; Airmass
+    Airmass: airmass
+
+    Met Station --&gt; Extraterrestrial DNI
+    Extraterrestrial DNI: extraDNI
+    Extraterrestrial DNI: spencer()
+
+    Met Station --&gt; Dew Point
+    Dew Point: dew point temperature
+    Dew Point: magnus_tetens()
+
+    Met Station --&gt; Decomposition Model
+    Solar Position --&gt; Decomposition Model
+    Site Pressure --&gt; Decomposition Model
+    Dew Point --&gt; Decomposition Model
+    Decomposition Model: direct normal irradiance
+    Decomposition Model: dirint()
+
+    Met Station --&gt; Geometric Model
+    Decomposition Model --&gt; Geometric Model
+    Geometric Model: diffuse horizontal irradiance
+
+</pre>
 <h2 id="edits-and-additions"><a class="header" href="#edits-and-additions">Edits and Additions</a></h2>
 <p>If you would like to see support for another algorithm or would like to suggest edits or additions to this documentation page, please open an issue on the <a href="https://github.com/ProximalEnergy/docs-mdbook">Proximal GitHub repository</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="site-pressure"><a class="header" href="#site-pressure">Site Pressure</a></h1>
@@ -309,6 +348,8 @@
         <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="mermaid.min.js"></script>
+        <script src="mermaid-init.js"></script>
 
         <script>
         window.addEventListener('load', function() {
