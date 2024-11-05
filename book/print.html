@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="welcome/welcome.html">Welcome</a></li><li class="chapter-item expanded affix "><li class="part-title">Events</li><li class="chapter-item expanded "><a href="events/events_overview.html"><strong aria-hidden="true">1.</strong> Events Overview</a></li><li class="chapter-item expanded affix "><li class="part-title">Key Performance Indicators</li><li class="chapter-item expanded "><a href="kpi/kpi_overview.html"><strong aria-hidden="true">2.</strong> KPI Overview</a></li><li class="chapter-item expanded affix "><li class="part-title">PV Performance Modeling</li><li class="chapter-item expanded "><a href="pv_performance/pv_model_overview.html"><strong aria-hidden="true">3.</strong> PV Model Overview</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="pv_performance/poai/plane_of_array_irradiance.html"><strong aria-hidden="true">3.1.</strong> Plane of Array Irradiance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="pv_performance/poai/solar_position.html"><strong aria-hidden="true">3.1.1.</strong> Solar Position</a></li><li class="chapter-item expanded "><a href="pv_performance/poai/extraterrestrial_dni.html"><strong aria-hidden="true">3.1.2.</strong> Extraterrestrial DNI</a></li><li class="chapter-item expanded "><a href="pv_performance/poai/direct_normal_irradiance.html"><strong aria-hidden="true">3.1.3.</strong> Direct Normal Irradiance</a></li><li class="chapter-item expanded "><a href="pv_performance/poai/reflected_horizontal_irradiance.html"><strong aria-hidden="true">3.1.4.</strong> Reflected Horizontal Irradiance</a></li><li class="chapter-item expanded "><a href="pv_performance/poai/diffuse_horizontal_irradiance.html"><strong aria-hidden="true">3.1.5.</strong> Diffuse Horizontal Irradiance</a></li><li class="chapter-item expanded "><a href="pv_performance/poai/tracker_rotation_angles.html"><strong aria-hidden="true">3.1.6.</strong> Tracker Rotation Angles</a></li></ol></li><li class="chapter-item expanded "><a href="pv_performance/effective_irradiance/effective_plane_of_array_irradiance.html"><strong aria-hidden="true">3.2.</strong> Effective Irradiance</a></li><li class="chapter-item expanded "><a href="pv_performance/dc/dc_system_losses.html"><strong aria-hidden="true">3.3.</strong> DC System Losses</a></li><li class="chapter-item expanded "><a href="pv_performance/ac/ac_system_losses.html"><strong aria-hidden="true">3.4.</strong> AC System Losses</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="welcome/welcome.html">Welcome</a></li><li class="chapter-item expanded affix "><li class="part-title">Events</li><li class="chapter-item expanded "><a href="events/events_overview.html"><strong aria-hidden="true">1.</strong> Events Overview</a></li><li class="chapter-item expanded affix "><li class="part-title">Key Performance Indicators</li><li class="chapter-item expanded "><a href="kpi/kpi_overview.html"><strong aria-hidden="true">2.</strong> KPI Overview</a></li><li class="chapter-item expanded affix "><li class="part-title">PV Performance Modeling</li><li class="chapter-item expanded "><a href="pv_performance/pv_model_overview.html"><strong aria-hidden="true">3.</strong> PV Model Overview</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="pv_performance/poai/plane_of_array_irradiance.html"><strong aria-hidden="true">3.1.</strong> Plane of Array Irradiance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="pv_performance/poai/site_pressure.html"><strong aria-hidden="true">3.1.1.</strong> Site Pressure</a></li><li class="chapter-item expanded "><a href="pv_performance/poai/solar_position.html"><strong aria-hidden="true">3.1.2.</strong> Solar Position</a></li><li class="chapter-item expanded "><a href="pv_performance/poai/extraterrestrial_dni.html"><strong aria-hidden="true">3.1.3.</strong> Extraterrestrial DNI</a></li><li class="chapter-item expanded "><a href="pv_performance/poai/direct_normal_irradiance.html"><strong aria-hidden="true">3.1.4.</strong> Direct Normal Irradiance</a></li><li class="chapter-item expanded "><a href="pv_performance/poai/reflected_horizontal_irradiance.html"><strong aria-hidden="true">3.1.5.</strong> Reflected Horizontal Irradiance</a></li><li class="chapter-item expanded "><a href="pv_performance/poai/diffuse_horizontal_irradiance.html"><strong aria-hidden="true">3.1.6.</strong> Diffuse Horizontal Irradiance</a></li><li class="chapter-item expanded "><a href="pv_performance/poai/tracker_rotation_angles.html"><strong aria-hidden="true">3.1.7.</strong> Tracker Rotation Angles</a></li></ol></li><li class="chapter-item expanded "><a href="pv_performance/effective_irradiance/effective_plane_of_array_irradiance.html"><strong aria-hidden="true">3.2.</strong> Effective Irradiance</a></li><li class="chapter-item expanded "><a href="pv_performance/dc/dc_system_losses.html"><strong aria-hidden="true">3.3.</strong> DC System Losses</a></li><li class="chapter-item expanded "><a href="pv_performance/ac/ac_system_losses.html"><strong aria-hidden="true">3.4.</strong> AC System Losses</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -193,10 +193,63 @@
 <li>The model is focused on <strong>Root Mean Squared Error (RMSE)</strong> as well as the <strong>Mean Squared Error (MSE)</strong>.  While most PV models in development focus only on MBE, RMSE can be a better metric for models which operate on a real time basis.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="plane-of-array-irradiance"><a class="header" href="#plane-of-array-irradiance">Plane of Array Irradiance</a></h1>
-<h1 id="general"><a class="header" href="#general">General</a></h1>
-<p>The Plane of Array Irradiance (POAI) is the amount of irradiance that is incident upon the front face of the photovoltaic array.
-This section of the documentation explains all of the different models and sub-models required to calcualte POAI in the order that they are calculated in the simulation.</p>
+<h2 id="general"><a class="header" href="#general">General</a></h2>
+<p>The Plane of Array Irradiance (POAI) is the amount of irradiance that is incident upon the front face of the photovoltaic array.</p>
+<p>This section of the documentation explains all of the different models and sub-models required to calculate POAI in the order that they are calculated in the simulation.</p>
+<h2 id="acronyms"><a class="header" href="#acronyms">Acronyms:</a></h2>
+<ul>
+<li><strong>DNI</strong>: Direct Normal Irradiance</li>
+<li><strong>DHI</strong>:  Diffuse Horizontal Irradiance</li>
+<li><strong>POAI</strong>: Plane of Array Irradiance</li>
+</ul>
+<h2 id="steps-to-calculate-poai"><a class="header" href="#steps-to-calculate-poai">Steps to Calculate POAI</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Step</th><th>Algorithm</th></tr></thead><tbody>
+<tr><td>1</td><td>Calculate Site Pressure</td></tr>
+<tr><td>2</td><td>Calculate Solar Position</td></tr>
+<tr><td>3</td><td>Calculate Air Mass</td></tr>
+<tr><td>4</td><td>Calculate Extraterrestrial DNI</td></tr>
+<tr><td>5</td><td>Calculate DNI</td></tr>
+<tr><td>6</td><td>Calculate DHI</td></tr>
+<tr><td>7</td><td>Calculate Irradiance Reflected onto Front Face</td></tr>
+<tr><td>8</td><td>Calculate Horizon Loss</td></tr>
+<tr><td>9</td><td>Calculate Tracker Rotation Angles</td></tr>
+</tbody></table>
+</div>
+<h2 id="edits-and-additions"><a class="header" href="#edits-and-additions">Edits and Additions</a></h2>
+<p>If you would like to see support for another algorithm or would like to suggest edits or additions to this documentation page, please open an issue on the <a href="https://github.com/ProximalEnergy/docs-mdbook">Proximal GitHub repository</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="site-pressure"><a class="header" href="#site-pressure">Site Pressure</a></h1>
+<h2 id="general-1"><a class="header" href="#general-1">General</a></h2>
+<p>The solar position algorithm calculates the solar zenith and azimuth angles as well as the "apparent" solar zenith which corrects for the effect of atmospheric refraction.</p>
+<h2 id="default-algorithm"><a class="header" href="#default-algorithm">Default Algorithm</a></h2>
+<p>The algorithm used by Proximal to calculate the site pressure is the <a href="https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.atmosphere.alt2pres.html#pvlib.atmosphere.alt2pres">pvlib.atmosphere.alt2pres</a> function.</p>
+<h3 id="inputs"><a class="header" href="#inputs">Inputs</a></h3>
+<pre><code class="language-python">    pressure = pvlib.atmosphere.alt2pres(
+        altitude=altitude,          # from project database
+    )
+</code></pre>
+<h2 id="other-algorithms"><a class="header" href="#other-algorithms">Other Algorithms</a></h2>
+<p>Currently, Proximal does not support any other algorithms.  If you would like to see support for another algorithm or would like to suggest edits or additions to this documentation page, please open an issue on the <a href="https://github.com/ProximalEnergy/docs-mdbook">Proximal GitHub repository</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="solar-position"><a class="header" href="#solar-position">Solar Position</a></h1>
+<h2 id="general-2"><a class="header" href="#general-2">General</a></h2>
+<p>The solar position algorithm calculates the solar zenith and azimuth angles as well as the "apparent" solar zenith which corrects for the effect of atmospheric refraction.</p>
+<h2 id="default-algorithm-1"><a class="header" href="#default-algorithm-1">Default Algorithm</a></h2>
+<p>The algorithm used by Proximal to calculate the solar position is the <a href="https://midcdmz.nrel.gov/spa/">NREL 2008</a> algorithm.  This algorithm was chosen because of it is the lowest uncertaintly algorithm included in the <a href="https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.solarposition.get_solarposition.html">pvlib</a> library.</p>
+<blockquote>
+<p>This algorithm calculates the solar zenith and azimuth angles in the period from the year -2000 to 6000, with uncertainties of +/- 0.0003 degrees based on the date, time, and location on Earth.</p>
+</blockquote>
+<p>Because of this choice, the default solar position algorithm in Proximal is more accurate and not equal to the algorithm chosen by PVsyst.</p>
+<h3 id="inputs-1"><a class="header" href="#inputs-1">Inputs</a></h3>
+<pre><code class="language-python">    solar_position = pvlib.solarposition.get_solarposition(
+        time=time,                  # from met station data
+        latitude=latitude,          # from project database
+        longitude=longitude,        # from project database
+        altitude=altitude,          # from project database
+        pressure=None,              # calculated inside pvlib function
+        temperature=temperature,    # from met station
+    )
+</code></pre>
+<h2 id="other-algorithms-1"><a class="header" href="#other-algorithms-1">Other Algorithms</a></h2>
+<p>Currently, Proximal does not support any other algorithms for calculating solar position.  If you would like to see support for another algorithm or would like to suggest edits or additions to this documentation page, please open an issue on the <a href="https://github.com/ProximalEnergy/docs-mdbook">Proximal GitHub repository</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="extraterrestrial-dni"><a class="header" href="#extraterrestrial-dni">Extraterrestrial DNI</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="direct-normal-irradiance"><a class="header" href="#direct-normal-irradiance">Direct Normal Irradiance</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="reflected-horizontal-irradiance"><a class="header" href="#reflected-horizontal-irradiance">Reflected Horizontal Irradiance</a></h1>
