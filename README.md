@@ -3,6 +3,7 @@
   - This command also automatically installs cargo which is rust's package manager
 - Navigate to this directory in your terminal
 - Add mdbook to your project by running `cargo add mdbook`
+- Add mdbook-mermaid by running `cargo add mdbook-mermaid`
 - Serve a local copy by running `mdbook serve --open`
 - Make sure to make edits to the folder and files through `SUMMARY.md` as cargo will automatically update your file structure based off of what is in your `SUMMARY.md` file
 
