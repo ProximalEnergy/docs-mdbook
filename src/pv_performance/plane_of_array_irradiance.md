@@ -99,7 +99,7 @@ flowchart TD
     .alt2pres
     ]]:::model
   calc_pressure --> calc_pressure_outputs
-  click calc_pressure "site_pressure.html" "site_pressure"
+  click calc_pressure "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.atmosphere.alt2pres.html"
 
   calc_pressure_outputs([
     pressure
@@ -122,6 +122,7 @@ flowchart TD
     NREL_2008
     ]]:::model
   solar_position --> solar_position_outputs
+  click solar_position "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.solarposition.get_solarposition.html#pvlib.solarposition.get_solarposition"
 
   solar_position_outputs([
     apparent_zenith
@@ -144,6 +145,7 @@ flowchart TD
     KASTEN_YOUNG_1989
   ]]:::model
   airmass --> airmass_outputs
+  click airmass "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.location.Location.get_airmass.html#pvlib.location.Location.get_airmass"
 
   airmass_outputs([
     airmass
@@ -164,6 +166,7 @@ flowchart TD
     SPENCER
     ]]:::model
   extraDNI --> extraDNI_outputs
+  click extraDNI "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.irradiance.get_extra_radiation.html#pvlib.irradiance.get_extra_radiation"
 
   extraDNI_outputs([
      extraterrestrial_DNI
@@ -183,6 +186,7 @@ flowchart TD
     MAGNUS_TETENS
     ]]:::model_dashed
   TDEW --> TDEW_outputs
+  click TDEW "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.atmosphere.tdew_from_rh.html#pvlib.atmosphere.tdew_from_rh"
 
   TDEW_outputs([
      temp_dew_point
@@ -208,6 +212,7 @@ flowchart TD
     DIRINT
   ]]:::model
   DNI --> DNI_outputs
+  click DNI "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.irradiance.dirint.html#pvlib.irradiance.dirint"
 
   DNI_outputs([
     DNI
@@ -229,6 +234,7 @@ flowchart TD
     GEOMETRIC
   ]]:::model
   DHI --> DHI_outputs
+  click DHI "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.irradiance.complete_irradiance.html#pvlib.irradiance.complete_irradiance"
 
   DHI_outputs([
     DHI
@@ -271,6 +277,7 @@ flowchart TD
     ANDERSON_MIKOFSKI_2020
     ]]:::model
   tracker_rotation_angles --> tracker_rotation_angles_outputs
+  click tracker_rotation_angles "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.tracking.singleaxis.html#pvlib.tracking.singleaxis"
 
   tracker_rotation_angles_outputs([
     tracker_rotation_angle
@@ -290,6 +297,7 @@ flowchart TD
     .calc_surface_orienation
     ]]:::model
   surface_angles --> surface_angle_outputs
+  click surface_angles "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.tracking.calc_surface_orientation.html#pvlib.tracking.calc_surface_orientation"
 
   surface_angle_outputs([
     surface_tilt
@@ -330,10 +338,12 @@ flowchart TD
   POAI_inputs --> POAI
 
   POAI[[
-    proximal.poai
+    pvlib.irradiance
+    .perez_driesse
     POAI
   ]]:::model
   POAI --> POAI_outputs
+  click POAI "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.irradiance.perez_driesse.html#pvlib.irradiance.perez_driesse"
 
   POAI_outputs([
     POAI
