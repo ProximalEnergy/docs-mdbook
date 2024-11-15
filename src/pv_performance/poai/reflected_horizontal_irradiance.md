@@ -1,1 +1,0 @@
-# Reflected Horizontal Irradiance

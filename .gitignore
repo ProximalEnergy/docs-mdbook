@@ -20,6 +20,11 @@ Cargo.lock
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+<<<<<<< HEAD
 # Added by cargo
 
 /target
+=======
+# mdbook
+book/*
+>>>>>>> 79a776dfbd0b6ac1934f8286922ca3e9c88c8f4d
