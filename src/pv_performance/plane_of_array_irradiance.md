@@ -19,6 +19,10 @@ This section of the documentation explains all of the different models and sub-m
 
 
 ## Simulation Pipeline
+The following flow diagram shows how the Plane of Array Irradiance is calculated in the Proximal expected energy simulation.  The flow chart is meant to be interactive.  Clicking on any of the modeling step nodes will take you to the documentation for that modeling step.
+
+You may need to zoom in to be able to better see all of the details in the flow chart.
+
 ### Legend
 ```mermaid
   flowchart LR
