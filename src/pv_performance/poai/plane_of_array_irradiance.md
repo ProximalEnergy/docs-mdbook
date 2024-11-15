@@ -16,49 +16,21 @@ This section of the documentation explains all of the different models and sub-m
  - **RH**: Relative Humidity
 
 ```mermaid
-classDiagram
-    System : latitude
-    System : longitude
-    System : elevation
-    System : albedo
+flowchart TD
 
-    Met Station: time
-    Met Station: global horizontal irradiance
-    Met Station: relative humidity
-    Met Station: ambient temperature
+  classDef source fill:#E6F3FF
+  classDef data fill:#e8f5e9
+  classDef model fill:#FFFFFF
 
-    System --> Site Pressure
-    Site Pressure: site pressure
-    Site Pressure: portland_state_aerospace_society()
+  met_station(Met Station):::source
 
-    System --> Solar Position
-    Met Station --> Solar Position
-    Solar Position: apparent zenith
-    Solar Position: azimuth
-    Solar Position: zenith
-    Solar Position: nrel_2008()
+  pv_system(PV System):::source
+  pv_system --> calc_pressure_inputs
 
-    Solar Position --> Airmass
-    Airmass: airmass
+  calc_pressure_inputs{{elevation}}:::data
+  calc_pressure_inputs --> calc_pressure
 
-    Met Station --> Extraterrestrial DNI
-    Extraterrestrial DNI: extraDNI
-    Extraterrestrial DNI: spencer()
-
-    Met Station --> Dew Point
-    Dew Point: dew point temperature
-    Dew Point: magnus_tetens()
-
-    Met Station --> Decomposition Model
-    Solar Position --> Decomposition Model
-    Site Pressure --> Decomposition Model
-    Dew Point --> Decomposition Model
-    Decomposition Model: direct normal irradiance
-    Decomposition Model: dirint()
-
-    Met Station --> Geometric Model
-    Decomposition Model --> Geometric Model
-    Geometric Model: diffuse horizontal irradiance
+  calc_pressure[pvlib.atmosphere.alt2pres]:::model
 
 ```
 
