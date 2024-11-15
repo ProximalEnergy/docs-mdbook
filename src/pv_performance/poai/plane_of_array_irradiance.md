@@ -67,11 +67,11 @@ flowchart TD
     *albedo
   )]:::source
 
-  met_station --> solar_position_inputs
   met_station --> extraDNI_inputs
-  met_station --> TDEW_inputs
-  met_station --> DHI_inputs
   met_station --> RHI_inputs
+  met_station --> DHI_inputs
+  met_station --> TDEW_inputs
+  met_station --> solar_position_inputs
 
   pv_system[(
     --- PV SYSTEM ---
@@ -85,8 +85,8 @@ flowchart TD
     transformers
     plant controller
   )]:::source
-  pv_system --> calc_pressure_inputs
   pv_system --> solar_position_inputs
+  pv_system --> calc_pressure_inputs
   pv_system --> tracker_rotation_angles_inputs
   pv_system --> surface_angle_inputs
 
@@ -127,9 +127,9 @@ flowchart TD
     apparent_zenith
     azimuth
   ]):::outputs
-  solar_position_outputs --> airmass_inputs
   solar_position_outputs --> DNI_inputs
   solar_position_outputs --> DHI_inputs
+  solar_position_outputs --> airmass_inputs
   solar_position_outputs --> tracker_rotation_angles_inputs
 
   %% --- AIRMASS ---
