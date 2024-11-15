@@ -9,6 +9,7 @@
 - [Geographic Information](./onboarding/geographic_information.md)
 - [Project Documents](./onboarding/project_documents.md)
 - [Ticketing Integration](./onboarding/maintenance_ticketing_integration.md)
+- [Event Root Causes](./onboarding/event_root_cause.md)
 - [Spare Parts Integration](./onboarding/spare_parts_management_integration.md)
 
 # Events
