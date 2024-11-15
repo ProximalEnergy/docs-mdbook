@@ -8,15 +8,20 @@ This section of the documentation explains all of the different models and sub-m
 
 ## Acronyms:
 - Irradiance
-  - **DNI**: Direct Normal Irradiance
   - **extraDNI**: Extraterrestrial Direct Normal Irradiance
+  - **DNI**: Direct Normal Irradiance
   - **DHI**:  Diffuse Horizontal Irradiance
+  - **RHI**:  Reflected Horizontal Irradiance
   - **POAI**: Plane of Array Irradiance
 - Meteorological
  - **RH**: Relative Humidity
 
+
+
+## Simulation Pipeline
+### Legend
 ```mermaid
-flowchart TD
+  flowchart LR
 
   %% --- CLASSES ---
   classDef source fill:#6B7A8F, color:#CCCCCC
@@ -24,28 +29,66 @@ flowchart TD
   classDef inputs fill:#1A1A1A, color:#CCCCCC
   classDef outputs fill:#B39245, color:#CCCCCC
 
+  database[(Database)]:::source
+  model_step[[
+    Modeling Step
+    DEFAULT MODEL CHOICE
+  ]]:::model
+  model_inputs[\
+    Input Parameters
+    for Modeling Step
+  /]:::inputs
+  model_outputs([Calculated Parameters]):::outputs
+
+  database --> model_outputs
+  model_inputs --> model_step --> model_outputs --> model_inputs
+
+```
+
+### Model Chain
+```mermaid
+flowchart TD
+
+  %% --- CLASSES ---
+  classDef source fill:#6B7A8F, color:#CCCCCC
+  classDef model fill:#202020, color:#CCCCCC
+  classDef model_dashed fill:#202020, color:#CCCCCC, stroke-dasharray: 5 5
+  classDef inputs fill:#1A1A1A, color:#CCCCCC
+  classDef outputs fill:#B39245, color:#CCCCCC
+
   %% --- SOURCES ---
   met_station[(Met Station)]:::source
   met_station --> met_station_outputs
 
-  met_station_outputs((
+  met_station_outputs([
     time
     ambient_temperature
     global_horizontal_radiation
     relative_humidity
     wind_speed
-   )):::outputs
+    -- in progress --
+    albedo
+   ]):::outputs
   met_station_outputs --> solar_position_inputs
   met_station_outputs --> extraDNI_inputs
+  met_station_outputs --> TDEW_inputs
+  met_station_outputs --> DHI_inputs
+  met_station_outputs --> RHI_inputs
 
   pv_system[(PV System)]:::source
   pv_system --> pv_system_outputs
 
-  pv_system_outputs((
+  pv_system_outputs([
     latitude
     longitude
     elevation
-   )):::outputs
+    module parameters
+    tracker parameters
+    combiner box parameters
+    inverter parameters
+    transformer parameters
+    plant parameters
+   ]):::outputs
   pv_system_outputs --> calc_pressure_inputs
   pv_system_outputs --> solar_position_inputs
 
@@ -59,9 +102,9 @@ flowchart TD
     ]]:::model
   calc_pressure --> calc_pressure_outputs
 
-  calc_pressure_outputs((
+  calc_pressure_outputs([
     pressure
-  )):::outputs
+  ]):::outputs
 
   %% --- SOLAR POSITION ---
   solar_position_inputs[\
@@ -80,12 +123,13 @@ flowchart TD
     ]]:::model
   solar_position --> solar_position_outputs
 
-  solar_position_outputs((
+  solar_position_outputs([
     apparent_zenith
     azimuth
-  )):::outputs
+  ]):::outputs
   solar_position_outputs --> airmass_inputs
   solar_position_outputs --> DNI_inputs
+  solar_position_outputs --> DHI_inputs
 
   %% --- AIRMASS ---
   airmass_inputs[\
@@ -100,9 +144,9 @@ flowchart TD
   ]]:::model
   airmass --> airmass_outputs
 
-  airmass_outputs((
+  airmass_outputs([
     airmass
-    )):::outputs
+    ]):::outputs
 
   %% --- EXTRATERRESTRIAL DNI ---
   extraDNI_inputs[\
@@ -119,9 +163,27 @@ flowchart TD
     ]]:::model
   extraDNI --> extraDNI_outputs
 
-  extraDNI_outputs((
+  extraDNI_outputs([
      extraterrestrial_DNI
-     )):::outputs
+     ]):::outputs
+
+  %% --- TDEW ---
+
+  TDEW_inputs[\
+    relative_humidity
+  /]:::inputs
+  TDEW_inputs --> TDEW
+
+  TDEW[[
+    pvlib.atmosphere
+    .tdew_from_rh
+    MAGNUS_TETENS
+    ]]:::model_dashed
+  TDEW --> TDEW_outputs
+
+  TDEW_outputs([
+     temp_dew_point
+     ]):::outputs
 
   %% --- DNI ---
 
@@ -139,8 +201,50 @@ flowchart TD
   DNI[[
     pvlib.irradiance
     .dirint
+    DIRINT
   ]]:::model
+  DNI --> DNI_outputs
 
+  DNI_outputs([
+    DNI
+  ]):::outputs
+
+  %% --- DHI ---
+  DHI_inputs[\
+    GHI
+    DHI
+    solar_zenith
+  /]:::inputs
+  DHI_inputs --> DHI
+
+  DHI[[
+    pvlib.irradiance
+    .complete_irradiance
+    GEOMETRIC
+  ]]:::model
+  DHI --> DHI_outputs
+
+  DHI_outputs([
+    DHI
+    ]):::outputs
+
+%% --- RHI ---
+
+RHI_inputs[\
+  GHI
+  albedo
+  /]:::inputs
+RHI_inputs --> RHI
+
+RHI[[
+  proximal.ratio
+  RATIO
+]]:::model
+RHI --> RHI_outputs
+
+RHI_outputs([
+ RHI
+ ]):::outputs
 
 
 
