@@ -64,9 +64,12 @@ flowchart TD
 
   pv_system[(
     --- PV SYSTEM ---
-    modules
+    module:
+      anti-reflection coating
+      glass thickness: L
   )]:::source
   pv_system --> calc_refractive_index
+  pv_system --> calc_aoi_inputs
 
   subgraph calculated in previous step
     %% --- POAI ---
@@ -122,25 +125,21 @@ flowchart TD
 
   %% --- REFRACTIVE INDEX ---
   calc_refractive_index{
-    calc_refractive_index: n
+    module has
+    anti-reflection coating
   }
-  calc_refractive_index --> refractive_index_standard
-  calc_refractive_index --> refractive_index_ar
+  calc_refractive_index -->|yes| refractive_index_standard
+  calc_refractive_index -->|no| refractive_index_ar
 
   refractive_index_standard([
-    refractive_index
-    no ar_coating
     n = 1.526
-  ])
+  ]):::outputs
   refractive_index_standard --> calc_aoi_inputs
 
   refractive_index_ar([
-    refractive_index
-    yes ar_coating
     n = 1.290
-  ])
+  ]):::outputs
   refractive_index_ar --> calc_aoi_inputs
-
 
 
   %% --- AOI ---
@@ -149,7 +148,7 @@ flowchart TD
     angle_of_incidence
     refractive_index: n
     K=4.0
-    L=0.002
+    glass_thickness: L
     /]:::inputs
   calc_aoi_inputs --> calc_aoi
 
