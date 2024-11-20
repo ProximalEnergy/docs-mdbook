@@ -66,18 +66,28 @@ flowchart TD
     --- PV SYSTEM ---
     modules
   )]:::source
-  pv_system --> calc_shading_inputs
+  pv_system --> calc_refractive_index
 
-  %% --- POAI ---
-  poai([
-    poai
-  ]):::outputs
+  subgraph calculated in previous step
+    %% --- POAI ---
+    poai([
+      poai
+    ]):::outputs
+
+    %% --- SURFACE ANGLES ---
+    surface_angles([
+      surface_tilt
+    ]):::outputs
+  end
+
   poai --> calc_shading_inputs
+  pv_system --> calc_shading_inputs
+  surface_angles --> calc_shading_inputs
 
   %% --- SHADING ---
   calc_shading_inputs[\
     module
-    tracker_rotation_angles
+    surface_tilt
     poai
     /]:::inputs
   calc_shading_inputs --> calc_shading
@@ -89,13 +99,13 @@ flowchart TD
   calc_shading --> calc_shading_outputs
 
   calc_shading_outputs([
-    poai_less_soiling
+    1_poai_less_shading
   ]):::outputs
   calc_shading_outputs --> calc_soiling_inputs
 
   %% --- SOILING ---
   calc_soiling_inputs[\
-    soiling_loss
+    measured_soiling_loss
     /]:::inputs
     calc_soiling_inputs --> calc_soiling
 
@@ -106,10 +116,52 @@ flowchart TD
   calc_soiling --> calc_soiling_outputs
 
   calc_soiling_outputs([
-    irradiance_less_soiling
+    2_poai_less_soiling
   ]):::outputs
   calc_soiling_outputs --> calc_aoi_inputs
 
+  %% --- REFRACTIVE INDEX ---
+  calc_refractive_index{
+    calc_refractive_index: n
+  }
+  calc_refractive_index --> refractive_index_standard
+  calc_refractive_index --> refractive_index_ar
+
+  refractive_index_standard([
+    refractive_index
+    no ar_coating
+    n = 1.526
+  ])
+  refractive_index_standard --> calc_aoi_inputs
+
+  refractive_index_ar([
+    refractive_index
+    yes ar_coating
+    n = 1.290
+  ])
+  refractive_index_ar --> calc_aoi_inputs
+
+
+
+  %% --- AOI ---
+  calc_aoi_inputs[\
+    2_poai_less_soiling
+    angle_of_incidence
+    refractive_index: n
+    K=4.0
+    L=0.002
+    /]:::inputs
+  calc_aoi_inputs --> calc_aoi
+
+  calc_aoi[[
+    pvlib.iam
+    .physical
+    ]]:::model
+  calc_aoi --> calc_aoi_outputs
+
+  calc_aoi_outputs([
+    3_poai_less_aoi
+  ]):::outputs
 
 
   ```
