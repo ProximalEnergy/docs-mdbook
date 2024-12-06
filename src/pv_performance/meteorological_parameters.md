@@ -77,23 +77,6 @@ flowchart TD
   met_station --> TDEW_inputs
   met_station --> solar_position_inputs
 
-  pv_system[(
-    --- PV SYSTEM ---
-    latitude
-    longitude
-    elevation
-    modules
-    trackers
-    combiner boxes
-    inverters
-    transformers
-    plant controller
-  )]:::source
-  pv_system --> solar_position_inputs
-  pv_system --> calc_pressure_inputs
-  pv_system --> tracker_rotation_angles_inputs
-  pv_system --> surface_angle_inputs
-
   %% --- ATMOSPHERIC PRESSURE ---
   calc_pressure_inputs[\elevation/]:::inputs
   calc_pressure_inputs --> calc_pressure
@@ -135,7 +118,6 @@ flowchart TD
   solar_position_outputs --> DNI_inputs
   solar_position_outputs --> DHI_inputs
   solar_position_outputs --> airmass_inputs
-  solar_position_outputs --> tracker_rotation_angles_inputs
 
   %% --- AIRMASS ---
   airmass_inputs[\
@@ -154,7 +136,6 @@ flowchart TD
   airmass_outputs([
     airmass
     ]):::outputs
-  airmass_outputs --> POAI_inputs
 
   %% --- EXTRATERRESTRIAL DNI ---
   extraDNI_inputs[\
@@ -175,7 +156,6 @@ flowchart TD
   extraDNI_outputs([
      extraterrestrial_DNI
      ]):::outputs
-  extraDNI_outputs --> POAI_inputs
 
   %% --- TDEW ---
 
@@ -221,7 +201,6 @@ flowchart TD
   DNI_outputs([
     DNI
   ]):::outputs
-  DNI_outputs --> POAI_inputs
   DNI_outputs --> DHI_inputs
 
   %% --- DHI ---
@@ -243,115 +222,7 @@ flowchart TD
   DHI_outputs([
     DHI
     ]):::outputs
-  DHI_outputs --> POAI_inputs
 
-  %% --- RHI ---
-  RHI_inputs[\
-    GHI
-    albedo
-    /]:::inputs
-  RHI_inputs --> RHI
-
-  RHI[[
-    proximal.ratio
-    RATIO
-  ]]:::model
-  RHI --> RHI_outputs
-
-  RHI_outputs([
-    RHI
-    ]):::outputs
-  RHI_outputs --> front_reflected_inputs
-
-  %% --- Tracker Rotation Angles ---
-  tracker_rotation_angles_inputs[\
-    apparent_zenith
-    azimuth
-    tracker_tilt
-    tracker_azimuth
-    tracker_max_angle
-    tracking_type
-    gcr
-    /]:::inputs
-  tracker_rotation_angles_inputs --> tracker_rotation_angles
-
-  tracker_rotation_angles[[
-    pvlib.tracking
-    .single_axis
-    ANDERSON_MIKOFSKI_2020
-    ]]:::model
-  tracker_rotation_angles --> tracker_rotation_angles_outputs
-  click tracker_rotation_angles "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.tracking.singleaxis.html#pvlib.tracking.singleaxis"
-
-  tracker_rotation_angles_outputs([
-    tracker_rotation_angle
-    ]):::outputs
-  tracker_rotation_angles_outputs --> surface_angle_inputs
-
-  %% --- surface angles ---
-  surface_angle_inputs[\
-    tracker_rotation_angle
-    axis_tilt
-    axis_azimuth
-   /]:::inputs
-  surface_angle_inputs --> surface_angles
-
-  surface_angles[[
-    pvlib.tracking
-    .calc_surface_orienation
-    ]]:::model
-  surface_angles --> surface_angle_outputs
-  click surface_angles "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.tracking.calc_surface_orientation.html#pvlib.tracking.calc_surface_orientation"
-
-  surface_angle_outputs([
-    surface_tilt
-    surface_azimuth
-    ]):::outputs
-  surface_angle_outputs --> POAI_inputs
-
-  %% --- Reflection on Front Side ---
-  front_reflected_inputs[\
-    surface_tilt
-    surface_azimuth
-    rhi
-    /]:::inputs
-  front_reflected_inputs --> front_reflected
-
-  front_reflected[[
-    proximal.front_reflected
-    ]]:::model_dashed
-  front_reflected --> front_reflected_outputs
-
-  front_reflected_outputs([
-    front_reflected
-    ]):::outputs
-  front_reflected_outputs --> POAI_inputs
-
-  %% --- POAI ---
-  POAI_inputs[\
-    surface_tilt
-    surface_azimuth
-    dhi
-    dni
-    front_reflected
-    extraterrestrial_dni
-    apparent_zenith
-    solar_azimuth
-    airmass
-    /]:::inputs
-  POAI_inputs --> POAI
-
-  POAI[[
-    pvlib.irradiance
-    .perez_driesse
-    POAI
-  ]]:::model
-  POAI --> POAI_outputs
-  click POAI "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.irradiance.perez_driesse.html#pvlib.irradiance.perez_driesse"
-
-  POAI_outputs([
-    POAI
-    ]):::outputs
   ```
 
 
