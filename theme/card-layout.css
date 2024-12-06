@@ -1,0 +1,87 @@
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.feature-card {
+    border: 1px solid var(--searchbar-border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    /* Using a slightly different shade than the main background */
+    background: var(--quote-bg);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition:
+        transform 0.2s,
+        background-color 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-3px);
+    /* Slightly lighter/darker on hover depending on theme */
+    filter: brightness(1.05);
+}
+
+.feature-icon {
+    /* Using table header background for icon container */
+    background: var(--table-header-bg);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.feature-icon-logo {
+    /* Using table header background for icon container */
+    background: var(--table-header-bg);
+    width: 140px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.feature-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--fg);
+}
+
+.feature-description {
+    color: var(--fg);
+    opacity: 0.8;
+    line-height: 1.5;
+}
+
+/* Theme-specific background adjustments */
+.ayu .feature-card {
+    background: var(--quote-bg);
+    border-color: var(--sidebar-bg);
+}
+
+.coal .feature-card {
+    background: var(--quote-bg);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.navy .feature-card {
+    background: var(--quote-bg);
+    border-color: var(--sidebar-bg);
+}
+
+.light .feature-card {
+    background: var(--quote-bg);
+    border-color: var(--searchbar-border-color);
+}
+
+.rust .feature-card {
+    background: var(--quote-bg);
+    border-color: var(--sidebar-bg);
+}

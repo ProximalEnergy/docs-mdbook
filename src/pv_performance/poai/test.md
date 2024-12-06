@@ -1,1 +1,0 @@
-# Plane of Array Irradiance
