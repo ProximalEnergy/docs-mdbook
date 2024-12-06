@@ -10,3 +10,4 @@ command = "mdbook-mermaid"
 [output.html]
 site-url = "/docs-mdbook/"
 additional-js = ["mermaid.min.js", "mermaid-init.js"]
+additional-css = ["theme/card-layout.css"]
