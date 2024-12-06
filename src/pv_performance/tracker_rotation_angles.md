@@ -27,8 +27,8 @@
   /]:::inputs
   model_outputs([Calculated Parameters]):::outputs
 
-  database --> model_outputs
-  previous --> model_outputs
+  database --> model_inputs
+  previous --> model_inputs
   model_inputs --> model_step --> model_outputs --> model_inputs
 
 ```

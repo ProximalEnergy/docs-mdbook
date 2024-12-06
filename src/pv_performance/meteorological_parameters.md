@@ -44,7 +44,7 @@ You may need to zoom in to be able to better see all of the details in the flow 
   /]:::inputs
   model_outputs([Calculated Parameters]):::outputs
 
-  database --> model_outputs
+  database --> model_inputs
   model_inputs --> model_step --> model_outputs --> model_inputs
 
 ```
@@ -61,6 +61,13 @@ flowchart TD
   classDef outputs fill:#B39245, color:#CCCCCC
 
   %% --- SOURCES ---
+
+  pv_system[(
+    --- PV SYSTEM ---
+    elevation
+  )]:::source
+  pv_system --> calc_pressure_inputs
+
   met_station[(
     --- MET STATION ---
     time
@@ -70,12 +77,10 @@ flowchart TD
     wind_speed
     *albedo
   )]:::source
-
-  met_station --> extraDNI_inputs
-  met_station --> RHI_inputs
-  met_station --> DHI_inputs
   met_station --> TDEW_inputs
   met_station --> solar_position_inputs
+  met_station --> extraDNI_inputs
+  met_station --> DHI_inputs
 
   %% --- ATMOSPHERIC PRESSURE ---
   calc_pressure_inputs[\elevation/]:::inputs
@@ -139,9 +144,9 @@ flowchart TD
 
   %% --- EXTRATERRESTRIAL DNI ---
   extraDNI_inputs[\
-   time
-   solar_constant=1360.8
-   epoch_year=2014
+  time
+  solar_constant=1360.8
+  epoch_year=2014
   /]:::inputs
   extraDNI_inputs --> extraDNI
 
@@ -154,8 +159,8 @@ flowchart TD
   click extraDNI "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.irradiance.get_extra_radiation.html#pvlib.irradiance.get_extra_radiation"
 
   extraDNI_outputs([
-     extraterrestrial_DNI
-     ]):::outputs
+    extraterrestrial_DNI
+    ]):::outputs
 
   %% --- TDEW ---
 
@@ -173,8 +178,8 @@ flowchart TD
   click TDEW "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.atmosphere.tdew_from_rh.html#pvlib.atmosphere.tdew_from_rh"
 
   TDEW_outputs([
-     temp_dew_point
-     ]):::outputs
+    temp_dew_point
+    ]):::outputs
   TDEW_outputs --> DNI_inputs
 
   %% --- DNI ---
@@ -222,7 +227,6 @@ flowchart TD
   DHI_outputs([
     DHI
     ]):::outputs
-
   ```
 
 
