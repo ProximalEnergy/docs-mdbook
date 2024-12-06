@@ -29,11 +29,13 @@ You may need to zoom in to be able to better see all of the details in the flow 
 
   %% --- CLASSES ---
   classDef source fill:#6B7A8F, color:#CCCCCC
+  classDef previous fill:#4F5B6F,color:#CCCCCC
   classDef model fill:#202020, color:#CCCCCC
   classDef inputs fill:#1A1A1A, color:#CCCCCC
   classDef outputs fill:#B39245, color:#CCCCCC
 
   database[(Database)]:::source
+  previous{{Previous Calculation}}:::previous
   model_step[[
     Modeling Step
     DEFAULT MODEL CHOICE
@@ -44,7 +46,8 @@ You may need to zoom in to be able to better see all of the details in the flow 
   /]:::inputs
   model_outputs([Calculated Parameters]):::outputs
 
-  database --> model_outputs
+  database --> model_inputs
+  previous --> model_inputs
   model_inputs --> model_step --> model_outputs --> model_inputs
 
 ```
@@ -55,6 +58,7 @@ flowchart TD
 
   %% --- CLASSES ---
   classDef source fill:#6B7A8F, color:#CCCCCC
+  classDef previous fill:#4F5B6F,color:#CCCCCC
   classDef model fill:#202020, color:#CCCCCC
   classDef model_dashed fill:#202020, color:#CCCCCC, stroke-dasharray: 5 5
   classDef inputs fill:#1A1A1A, color:#CCCCCC
@@ -63,294 +67,126 @@ flowchart TD
   %% --- SOURCES ---
   met_station[(
     --- MET STATION ---
-    time
-    ambient_temperature
-    global_horizontal_radiation
-    relative_humidity
-    wind_speed
-    *albedo
+    ghi
   )]:::source
+  met_station --> ground_diffuse_inputs
 
-  met_station --> extraDNI_inputs
-  met_station --> RHI_inputs
-  met_station --> DHI_inputs
-  met_station --> TDEW_inputs
-  met_station --> solar_position_inputs
+  tracker_params{{
+    --- TRACKER PARAMS ---
+    tracker_rotation_angle
+    tracker_surface_tilt
+    tracker_surface_azimuth
+    aoi
+  }}:::previous
+  click tracker_params "tracker_rotation_angles.html"
+  tracker_params --> sky_diffuse_inputs
+  tracker_params --> ground_diffuse_inputs
+  tracker_params --> beam_inputs
 
-  pv_system[(
-    --- PV SYSTEM ---
-    latitude
-    longitude
-    elevation
-    modules
-    trackers
-    combiner boxes
-    inverters
-    transformers
-    plant controller
-  )]:::source
-  pv_system --> solar_position_inputs
-  pv_system --> calc_pressure_inputs
-  pv_system --> tracker_rotation_angles_inputs
-  pv_system --> surface_angle_inputs
-
-  %% --- ATMOSPHERIC PRESSURE ---
-  calc_pressure_inputs[\elevation/]:::inputs
-  calc_pressure_inputs --> calc_pressure
-
-  calc_pressure[[
-    pvlib.atmosphere
-    .alt2pres
-    ]]:::model
-  calc_pressure --> calc_pressure_outputs
-  click calc_pressure "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.atmosphere.alt2pres.html"
-
-  calc_pressure_outputs([
-    pressure
-  ]):::outputs
-  calc_pressure_outputs --> DNI_inputs
-
-  %% --- SOLAR POSITION ---
-  solar_position_inputs[\
-    time
-    ambient_temperature
-    latitude
-    longitude
-    altitude
-  /]:::inputs
-  solar_position_inputs --> solar_position
-
-  solar_position[[
-    pvlib.solarposition
-    .get_solarposition
-    NREL_2008
-    ]]:::model
-  solar_position --> solar_position_outputs
-  click solar_position "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.solarposition.get_solarposition.html#pvlib.solarposition.get_solarposition"
-
-  solar_position_outputs([
+  met_params{{
+    --- MET PARAMS ---
+    dhi
+    dni
+    dni_extra
     apparent_zenith
     azimuth
-  ]):::outputs
-  solar_position_outputs --> DNI_inputs
-  solar_position_outputs --> DHI_inputs
-  solar_position_outputs --> airmass_inputs
-  solar_position_outputs --> tracker_rotation_angles_inputs
+    airmass_relative
+  }}:::previous
+  met_params --> sky_diffuse_inputs
+  met_params --> beam_inputs
+  click met_params "meteorological_parameters.html"
 
-  %% --- AIRMASS ---
-  airmass_inputs[\
-    apparent_zenith
-  /]:::inputs
-  airmass_inputs --> airmass
-
-  airmass[[
-    pvlib.atmosphere
-    .get_relative_airmass
-    KASTEN_YOUNG_1989
-  ]]:::model
-  airmass --> airmass_outputs
-  click airmass "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.location.Location.get_airmass.html#pvlib.location.Location.get_airmass"
-
-  airmass_outputs([
-    airmass
-    ]):::outputs
-  airmass_outputs --> POAI_inputs
-
-  %% --- EXTRATERRESTRIAL DNI ---
-  extraDNI_inputs[\
-   time
-   solar_constant=1360.8
-   epoch_year=2014
-  /]:::inputs
-  extraDNI_inputs --> extraDNI
-
-  extraDNI[[
-    pvlib.irradiance
-    .get_extra_radiation
-    SPENCER
-    ]]:::model
-  extraDNI --> extraDNI_outputs
-  click extraDNI "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.irradiance.get_extra_radiation.html#pvlib.irradiance.get_extra_radiation"
-
-  extraDNI_outputs([
-     extraterrestrial_DNI
-     ]):::outputs
-  extraDNI_outputs --> POAI_inputs
-
-  %% --- TDEW ---
-
-  TDEW_inputs[\
-    relative_humidity
-  /]:::inputs
-  TDEW_inputs --> TDEW
-
-  TDEW[[
-    pvlib.atmosphere
-    .tdew_from_rh
-    MAGNUS_TETENS
-    ]]:::model_dashed
-  TDEW --> TDEW_outputs
-  click TDEW "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.atmosphere.tdew_from_rh.html#pvlib.atmosphere.tdew_from_rh"
-
-  TDEW_outputs([
-     temp_dew_point
-     ]):::outputs
-  TDEW_outputs --> DNI_inputs
-
-  %% --- DNI ---
-
-  DNI_inputs[\
-    solar_zenith
+  %% --- Ground Diffuse ---
+  ground_diffuse_inputs[\
+    surface_tilt
     ghi
-    pressure
-    temp_dew
-    use_delta_kt_prime=False,
-    min_cos_zenith=0.065
-    max_zenith=87
-  /]:::inputs
-  DNI_inputs --> DNI
-
-  DNI[[
-    pvlib.irradiance
-    .dirint
-    DIRINT
-  ]]:::model
-  DNI --> DNI_outputs
-  click DNI "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.irradiance.dirint.html#pvlib.irradiance.dirint"
-
-  DNI_outputs([
-    DNI
-  ]):::outputs
-  DNI_outputs --> POAI_inputs
-  DNI_outputs --> DHI_inputs
-
-  %% --- DHI ---
-  DHI_inputs[\
-    GHI
-    DNI
-    solar_zenith
-  /]:::inputs
-  DHI_inputs --> DHI
-
-  DHI[[
-    pvlib.irradiance
-    .complete_irradiance
-    GEOMETRIC
-  ]]:::model
-  DHI --> DHI_outputs
-  click DHI "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.irradiance.complete_irradiance.html#pvlib.irradiance.complete_irradiance"
-
-  DHI_outputs([
-    DHI
-    ]):::outputs
-  DHI_outputs --> POAI_inputs
-
-  %% --- RHI ---
-  RHI_inputs[\
-    GHI
     albedo
     /]:::inputs
-  RHI_inputs --> RHI
+  ground_diffuse_inputs --> ground_diffuse
 
-  RHI[[
-    proximal.ratio
-    RATIO
-  ]]:::model
-  RHI --> RHI_outputs
-
-  RHI_outputs([
-    RHI
-    ]):::outputs
-  RHI_outputs --> front_reflected_inputs
-
-  %% --- Tracker Rotation Angles ---
-  tracker_rotation_angles_inputs[\
-    apparent_zenith
-    azimuth
-    tracker_tilt
-    tracker_azimuth
-    tracker_max_angle
-    tracking_type
-    gcr
-    /]:::inputs
-  tracker_rotation_angles_inputs --> tracker_rotation_angles
-
-  tracker_rotation_angles[[
-    pvlib.tracking
-    .single_axis
-    ANDERSON_MIKOFSKI_2020
+  ground_diffuse[[
+    pvlib.irradiance
+    .ground_diffuse
+    GEOMETRIC
     ]]:::model
-  tracker_rotation_angles --> tracker_rotation_angles_outputs
-  click tracker_rotation_angles "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.tracking.singleaxis.html#pvlib.tracking.singleaxis"
+  ground_diffuse --> ground_diffuse_outputs
+  click ground_diffuse "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.irradiance.get_ground_diffuse.html"
 
-  tracker_rotation_angles_outputs([
-    tracker_rotation_angle
+  ground_diffuse_outputs([
+    ground_diffuse
     ]):::outputs
-  tracker_rotation_angles_outputs --> surface_angle_inputs
+  ground_diffuse_outputs --> poai_inputs
 
-  %% --- surface angles ---
-  surface_angle_inputs[\
-    tracker_rotation_angle
-    axis_tilt
-    axis_azimuth
-   /]:::inputs
-  surface_angle_inputs --> surface_angles
-
-  surface_angles[[
-    pvlib.tracking
-    .calc_surface_orienation
-    ]]:::model
-  surface_angles --> surface_angle_outputs
-  click surface_angles "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.tracking.calc_surface_orientation.html#pvlib.tracking.calc_surface_orientation"
-
-  surface_angle_outputs([
-    surface_tilt
-    surface_azimuth
-    ]):::outputs
-  surface_angle_outputs --> POAI_inputs
-
-  %% --- Reflection on Front Side ---
-  front_reflected_inputs[\
-    surface_tilt
-    surface_azimuth
-    rhi
-    /]:::inputs
-  front_reflected_inputs --> front_reflected
-
-  front_reflected[[
-    proximal.front_reflected
-    ]]:::model_dashed
-  front_reflected --> front_reflected_outputs
-
-  front_reflected_outputs([
-    front_reflected
-    ]):::outputs
-  front_reflected_outputs --> POAI_inputs
-
-  %% --- POAI ---
-  POAI_inputs[\
+  %% --- Sky Diffuse ---
+  sky_diffuse_inputs[\
     surface_tilt
     surface_azimuth
     dhi
     dni
-    front_reflected
-    extraterrestrial_dni
+    dni_extra
     apparent_zenith
-    solar_azimuth
-    airmass
+    azimuth
+    airmass_relative
     /]:::inputs
-  POAI_inputs --> POAI
+  sky_diffuse_inputs --> sky_diffuse
 
-  POAI[[
+  sky_diffuse[[
     pvlib.irradiance
     .perez_driesse
     POAI
   ]]:::model
-  POAI --> POAI_outputs
-  click POAI "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.irradiance.perez_driesse.html#pvlib.irradiance.perez_driesse"
+  sky_diffuse --> sky_diffuse_outputs
+  click sky_diffuse "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.irradiance.perez_driesse.html#pvlib.irradiance.perez_driesse"
 
-  POAI_outputs([
-    POAI
+  sky_diffuse_outputs([
+    isotropic
+    horizon
+    circumsolar
+    ]):::outputs
+  sky_diffuse_outputs --> poai_inputs
+
+  %% --- BEAM ---
+  beam_inputs[\
+    surface_tilt
+    surface_azimuth
+    solar_zenith
+    solar_azimuth
+    dni
+    /]:::inputs
+  beam_inputs --> beam
+
+  beam[[
+    pvlib.irradiance
+    .beam_component
+    GEOMETRIC
+    ]]:::model
+  beam --> beam_outputs
+  click beam "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.irradiance.beam.html"
+
+  beam_outputs([
+    beam
+    ]):::outputs
+  beam_outputs --> poai_inputs
+
+  %% --- POAI ---
+  poai_inputs[\
+    isotropic
+    circumsolar
+    horizon
+    ground_diffuse
+    beam
+    /]:::inputs
+  poai_inputs --> poai
+
+  poai[[
+    proximal.poai_components
+    SUM
+  ]]:::model
+  poai --> poai_outputs
+
+
+  poai_outputs([
+    poai_global
     ]):::outputs
   ```
 

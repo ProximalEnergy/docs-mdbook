@@ -7,16 +7,11 @@ The first step of the Proximal expected energy simulation is to ingest data from
 This section of the documentation shows all models in the order that they are calculated in the simulation.
 
 ## Acronyms:
-- Irradiance
-  - **extraDNI**: Extraterrestrial Direct Normal Irradiance
-  - **DNI**: Direct Normal Irradiance
-  - **DHI**:  Diffuse Horizontal Irradiance
-
-- Meteorological
- - **RH**: Relative Humidity
- - **PWAT**: Precipitable Water
-
-
+- **DHI**:  Diffuse Horizontal Irradiance
+- **DNI**: Direct Normal Irradiance
+- **extraDNI**: Extraterrestrial Direct Normal Irradiance
+- **PWAT**: Precipitable Water
+- **RH**: Relative Humidity
 
 ## Simulation Pipeline
 The following flow diagram shows how meteorological parameters is calculated in the Proximal expected energy simulation.  The flow chart is meant to be interactive.  Clicking on any of the modeling step nodes will take you to the documentation for that modeling step.
