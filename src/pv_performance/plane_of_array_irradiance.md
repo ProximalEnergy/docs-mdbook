@@ -7,14 +7,12 @@ The Plane of Array Irradiance (POAI) is the amount of irradiance that is inciden
 This section of the documentation explains all of the different models and sub-models required to calculate POAI in the order that they are calculated in the simulation.
 
 ## Acronyms:
-- Irradiance
-  - **extraDNI**: Extraterrestrial Direct Normal Irradiance
-  - **DNI**: Direct Normal Irradiance
-  - **DHI**:  Diffuse Horizontal Irradiance
-  - **RHI**:  Reflected Horizontal Irradiance
-  - **POAI**: Plane of Array Irradiance
-- Meteorological
- - **RH**: Relative Humidity
+- **extraDNI**: Extraterrestrial Direct Normal Irradiance
+- **DNI**: Direct Normal Irradiance
+- **DHI**:  Diffuse Horizontal Irradiance
+- **RHI**:  Reflected Horizontal Irradiance
+- **POAI**: Plane of Array Irradiance
+
 
 
 

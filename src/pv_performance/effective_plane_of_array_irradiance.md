@@ -24,11 +24,13 @@ You may need to zoom in to be able to better see all of the details in the flow 
 
   %% --- CLASSES ---
   classDef source fill:#6B7A8F, color:#CCCCCC
+  classDef previous fill:#4F5B6F,color:#CCCCCC
   classDef model fill:#202020, color:#CCCCCC
   classDef inputs fill:#1A1A1A, color:#CCCCCC
   classDef outputs fill:#B39245, color:#CCCCCC
 
   database[(Database)]:::source
+  previous{{Previous Calculation}}:::previous
   model_step[[
     Modeling Step
     DEFAULT MODEL CHOICE
@@ -39,11 +41,11 @@ You may need to zoom in to be able to better see all of the details in the flow 
   /]:::inputs
   model_outputs([Calculated Parameters]):::outputs
 
-  database --> model_outputs
+  database --> model_inputs
+  previous --> model_inputs
   model_inputs --> model_step --> model_outputs --> model_inputs
 
 ```
-
 
 ### Model Chain
 ```mermaid
@@ -51,222 +53,189 @@ flowchart TD
 
   %% --- CLASSES ---
   classDef source fill:#6B7A8F, color:#CCCCCC
+  classDef previous fill:#4F5B6F,color:#CCCCCC
   classDef model fill:#202020, color:#CCCCCC
   classDef model_dashed fill:#202020, color:#CCCCCC, stroke-dasharray: 5 5
   classDef inputs fill:#1A1A1A, color:#CCCCCC
   classDef outputs fill:#B39245, color:#CCCCCC
 
+  %% --- SOURCES ---
   met_station[(
     --- MET STATION ---
-    time
-    solar_zenith
-    solar_azimuth
-    soiling_loss
-    ambient temperature
-    relative_humidity
+    soiling
   )]:::source
-  met_station --> calc_projected_zenith_inputs
-  met_station --> calc_p_wat_inputs
-
-  met_station --> calc_soiling_inputs
+  met_station --> soiling_inputs
 
   pv_system[(
     --- PV Modules ---
-    anti-reflection coating
-    glass thickness: L
-    spectral coefficients
+    n
+    K
+    L
+    n_ar
+    cell_technology
   )]:::source
-  pv_system --> calc_projected_zenith_inputs
-  pv_system --> calc_shading_inputs
-  pv_system --> calc_aoi_inputs
-  pv_system --> calc_refractive_index
-  pv_system --> calc_spectral_inputs
+  pv_system --> direct_iam_inputs
+  pv_system --> spectral_inputs
 
-  subgraph calculated in previous step
-    %% --- POAI ---
-    poai([
-      poai
-    ]):::outputs
+  tracker_params{{
+    --- TRACKER PARAMS ---
+    rotation_angle
+    surface_tilt
+    surface_azimuth
+    aoi
+  }}:::previous
+  click tracker_params "tracker_rotation_angles.html"
+  tracker_params --> direct_shade_inputs
+  tracker_params --> direct_iam_inputs
 
-    %% --- SURFACE ANGLES ---
-    surface_angles([
-      surface_tilt
-    ]):::outputs
+  met_params{{
+    --- MET PARAMS ---
+    dhi
+    dni
+    dni_extra
+    apparent_zenith
+    azimuth
+    airmass_relative
+  }}:::previous
+  click met_params "meteorological_parameters.html"
+  met_params --> direct_shade_inputs
+  met_params --> spectral_inputs
 
-    %% --- Axis Tilts
-    axis_tilt([
-      axis_tilt
-    ]):::outputs
+  poai_params{{
+    --- POAI PARAMS ---
+    isotropic
+    horizon
+    ground_diffuse
+    circumsolar
+    beam
+  }}:::previous
+  click poai_params "plane_of_array_irradiance.html"
+  poai_params --> direct_shade_inputs
 
-    %% --- Axis Azimuths
-    axis_azimuth([
-      axis_azimuth
-    ]):::outputs
-  end
-
-  poai --> calc_shading_inputs
-  surface_angles --> calc_shading_inputs
-  axis_azimuth --> calc_projected_zenith_inputs
-  axis_tilt --> calc_projected_zenith_inputs
-
-
-  %% --- SHADING ---
-  calc_projected_zenith_inputs[\
-    solar_zenith
-    solar_azimuth
+  %% --- Direct Shade ---
+  direct_shade_inputs[\
+    apparent_zenith
+    azimuth
     axis_tilt
     axis_azimuth
+    rotation_angle
+    collector_width
+    pitch
+    surface_to_axis_offset
+    cross_axis_slope
+    shading_row_rotation
     /]:::inputs
-  calc_projected_zenith_inputs --> calc_projected_zenith
+  direct_shade_inputs --> direct_shade
 
-  calc_projected_zenith[[
+  direct_shade[[
     pvlib.shading
-    .projected_solar
-    _zenith_angle
-  ]]
-  calc_projected_zenith --> calc_projected_zenith_outputs
-
-  calc_projected_zenith_outputs([
-    projected_zenith
-  ])
-  calc_projected_zenith_outputs -->
-  determine_direction
-
-  determine_direction{
-    projected_zenith
-  }
-  determine_direction -->|zenith < 0| shade_fraction_1
-  determine_direction -->|zenith > 0| shade_fraction_2
-
-  shade_fraction_1([
-    shade_fraction = 1
-  ]):::outputs
-  shade_fraction_1 --> calc_shading_inputs
-
-  shade_fraction_2([
-    shade_fraction = 0
-  ]):::outputs
-  shade_fraction_2 --> calc_shading_inputs
-
-  calc_shading_inputs[\
-    module
-    surface_tilt
-    poai
-    /]:::inputs
-  calc_shading_inputs --> calc_shading
-
-  calc_shading[[
-    pvlib.shading
-    shaded_fraction1d
+    .shaded_fraction_1d
     ]]:::model
-  calc_shading --> calc_shading_outputs
+  click direct_shade "https://pvlib-python.readthedocs.io/en/latest/reference/generated/pvlib.shading.shaded_fraction1d.html"
+  direct_shade --> direct_shade_outputs
 
-  calc_shading_outputs([
-    p1:
-    poai - shading
-  ]):::outputs
-  calc_shading_outputs --> calc_soiling_inputs
+  direct_shade_outputs([
+      isotropic
+      horizon
+      ground_diffuse
+      circumsolar - shade?
+      beam - shade
+    ]):::outputs
+  direct_shade_outputs --> soiling_inputs
 
-  %% --- SOILING ---
-  calc_soiling_inputs[\
-    p1
-    measured_soiling_loss
+  %% --- Soiling ---
+  soiling_inputs[\
+    soiling_loss
     /]:::inputs
-    calc_soiling_inputs --> calc_soiling
+  soiling_inputs --> soiling
 
-  calc_soiling[[
+  soiling[[
     proximal.soiling
     RATIO
-    ]]:::model
-  calc_soiling --> calc_soiling_outputs
-
-  calc_soiling_outputs([
-    p2:
-    p1 - soiling
-  ]):::outputs
-  calc_soiling_outputs --> calc_aoi_inputs
-
-  %% --- REFRACTIVE INDEX ---
-  calc_refractive_index{
-    module has
-    anti-reflection coating
-  }
-  calc_refractive_index -->|yes| refractive_index_standard
-  calc_refractive_index -->|no| refractive_index_ar
-
-  refractive_index_standard([
-    n = 1.526
-  ]):::outputs
-  refractive_index_standard --> calc_aoi_inputs
-
-  refractive_index_ar([
-    n = 1.290
-  ]):::outputs
-  refractive_index_ar --> calc_aoi_inputs
-
-
-  %% --- AOI ---
-  calc_aoi_inputs[\
-    p2
-    angle_of_incidence
-    refractive_index: n
-    K=4.0
-    glass_thickness: L
-    /]:::inputs
-  calc_aoi_inputs --> calc_aoi
-
-  calc_aoi[[
-    pvlib.iam
-    .physical
-    ]]:::model
-  calc_aoi --> calc_aoi_outputs
-
-  calc_aoi_outputs([
-    p3:
-    p2 - aoi
-  ]):::outputs
-  calc_aoi_outputs --> calc_spectral_inputs
-
-  %% --- SPECTRAL ---
-  calc_p_wat_inputs[\
-    ambient temperature
-    relative humidity
-    /]:::inputs
-  calc_p_wat_inputs --> calc_p_wat
-
-  calc_p_wat[[
-      pvlib.atmosphere
-      .gueymard94_pw
   ]]:::model
-  calc_p_wat --> calc_p_wat_outputs
+  soiling --> soiling_outputs
 
-  calc_p_wat_outputs([
-    precipitable water
-   ]):::outputs
-  calc_p_wat_outputs --> calc_spectral_inputs
+  soiling_outputs([
+    isotropic - soil
+    horizon - soil
+    ground_diffuse - soil
+    circumsolar - soil
+    beam - soil
+    ]):::outputs
+  soiling_outputs --> direct_iam_inputs
 
-  calc_spectral_inputs[\
-    p3
-    precipitable water
-    airmass absolute
-    spectral coefficients
-    min_p_wat=0.1
-    max_p_wat=8.0
-    min_airmass_abs=0.58
-    max_airmass_abs=10.0
+  %% --- Direct IAM ---
+  direct_iam_inputs[\
+  aoi
+  n
+  K
+  L
+  n_ar
+  /]:::inputs
+  direct_iam_inputs --> direct_iam
+
+  direct_iam[[
+    pvlib.iam.physical
+    PHYSICAL
+  ]]:::model
+  click direct_iam "https://pvlib-python.readthedocs.io/en/latest/reference/generated/pvlib.iam.physical.html"
+  direct_iam --> direct_iam_outputs
+
+  direct_iam_outputs([
+      isotropic
+      horizon
+      ground_diffuse
+      circumsolar - iam?
+      beam - iam
+    ]):::outputs
+  direct_iam_outputs --> spectral_inputs
+
+  %% --- Spectral ---
+  spectral_inputs[\
+      prcipitable_water
+      airmass_absolute
+      cdte_coefficients
+      min_p_wat=0.1
+      max_p_wat=8.0
+      min_airmass_abs=0.58
+      max_airmass_abs=10.0
     /]:::inputs
-  calc_spectral_inputs --> calc_spectral
+  spectral_inputs --> spectral
 
-  calc_spectral[[
-    pvlib.spectral
-    .spectral
-    ]]:::model
-  calc_spectral --> calc_spectral_outputs
+  spectral[[
+    pvlib.spectral.spectral
+    SPECTRAL
+  ]]:::model
+  spectral --> spectral_outputs
 
-  calc_spectral_outputs([
-    effective poai
-  ]):::outputs
+  spectral_outputs([
+    isotropic - spectral
+    horizon - spectral
+    ground_diffuse - spectral
+    circumsolar - spectral
+    beam - spectral
+    ]):::outputs
+  spectral_outputs --> epoai_inputs
 
+  %% --- EPOIA ---
+  epoai_inputs[\
+      isotropic
+      horizon
+      ground_diffuse
+      circumsolar
+      beam
+      /]:::inputs
+  epoai_inputs --> epoai
+
+  epoai[[
+    proximal.epoai_components
+    SUM
+  ]]:::model
+  epoai --> epoai_outputs
+
+  epoai_outputs([
+    epoai_global
+    ]):::outputs
   ```
 
 
