@@ -35,8 +35,20 @@
     margin-bottom: 1rem;
 }
 
+.feature-icon-logo {
+    /* Using table header background for icon container */
+    background: var(--table-header-bg);
+    width: 140px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
 .feature-title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--fg);
