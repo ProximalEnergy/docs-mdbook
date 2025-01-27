@@ -2,11 +2,19 @@
 
 [Welcome](./welcome/welcome.md)
 
+# Commissioning
+- [Commissioning Overview](./commissioning/commissioning_overview.md)
+
 # Events
 - [Events Overview](./events/events_overview.md)
 
 # Key Performance Indicators
 - [KPI Overview](./kpi/kpi_overview.md)
+
+# Reports
+- [Reports Overview](./reports/reports_overview.md)
+  - [DC Amperage Report](./reports/dc_amperage.md)
+  - [Module Degradation Report](./reports/module_degradation.md)
 
 # PV Performance Modeling
 - [PV Model Overview](./pv_performance/pv_model_overview.md)
