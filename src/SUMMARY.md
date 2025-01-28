@@ -18,9 +18,12 @@
 
 # PV Performance Modeling
 - [PV Model Overview](./pv_performance/pv_model_overview.md)
-  - [Meteorological Parameters](./pv_performance/meteorological_parameters.md)
-  - [Tracker Rotation Angles](./pv_performance/tracker_rotation_angles.md)
-  - [Plane of Array Irradiance](./pv_performance/plane_of_array_irradiance.md)
-  - [Effective Irradiance](./pv_performance/effective_plane_of_array_irradiance.md)
-  - [DC System Losses](./pv_performance/dc_system_losses.md)
-  - [AC System Losses](./pv_performance/ac_system_losses.md)
+  - [Simulation Docs](./pv_performance/simulation/simulation.md)
+    - [Meteorological Parameters](./pv_performance/simulation/meteorological_parameters.md)
+    - [Tracker Rotation Angles](./pv_performance/simulation/tracker_rotation_angles.md)
+    - [Plane of Array Irradiance](./pv_performance/simulation/plane_of_array_irradiance.md)
+    - [Effective Irradiance](./pv_performance/simulation/effective_plane_of_array_irradiance.md)
+    - [DC System Losses](./pv_performance/simulation/dc_system_losses.md)
+    - [AC System Losses](./pv_performance/simulation/ac_system_losses.md)
+  - [Quality Control Docs](./pv_performance/qc/quality_control.md)
+    - [Soiling Sensors](./pv_performance/qc/soiling.md)
