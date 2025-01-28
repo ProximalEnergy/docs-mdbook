@@ -6,6 +6,10 @@ The Plane of Array Irradiance (POAI) is the amount of irradiance that is inciden
 
 This section of the documentation explains all of the different models and sub-models required to calculate POAI in the order that they are calculated in the simulation.
 
+## Switching Behavior
+
+The Proximal Performance Model behaves different from other performance modeling software the user may be familiar with.  It automatically switches between using the POA sensor as the input to the POA components model and the GHI sensor as the input to the POA components model.  The model does this to account for the tendency of POA sensors to get shaded by nearby racks and become out of position due to tracking faults.  When the predicted POA from the GHI sensor is greater than ten percent above the measured POA data, then the decomposed and transposed components from the GHI sensor are used for the rest of the model.  This behavior is then noted in the data stream as lower quality data.
+
 ## Acronyms:
 - **extraDNI**: Extraterrestrial Direct Normal Irradiance
 - **DNI**: Direct Normal Irradiance

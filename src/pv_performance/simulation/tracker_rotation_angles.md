@@ -1,5 +1,13 @@
 # Tracker Rotation Angles
 
+## General
+This section describes how tracker rotation angles are calculated in the Proximal Performance Model.
+
+## Caveats
+- At the moment, only two dimensional modeling is taken into account.  This means that 3D models such as terrain avoidance are not implemented (yet).
+- At the moment, only solar position is taken into account.  This means that tracker algorithms which take into account all-sky conditions are not implemented (yet).
+- At the moment, only full cell module algorithms are taken into account.  This means that tracker algorithms which take into account half-cell shading electrical effects are not implemented (yet).
+
 ## Acronyms:
 - Tracking
  - **aoi**: Angle of Incidence

@@ -6,6 +6,13 @@ The first step of the Proximal expected energy simulation is to ingest data from
 
 This section of the documentation shows all models in the order that they are calculated in the simulation.
 
+## Met Station Assignments
+The Proximal performance model treats weather data slightly differently than other performance models users may be familiar with.  Instead of using a single set of weather data for every electrical component being modeled, Proximal assigns electrical components to individual blocks and then assigns those blocks a met station to use for modeling purposes.  Each block is then modeled with the data that corresponds to its assigned met station.  Generally the closest met station to the block is chosen to be that blocks assigned met station.
+
+### F.A.Q.
+- Why not interpolate geospatially between weather stations?
+  - Because passing clouds create a hard edge of irradiance, interpolating irradiance between sensors would create non-physical values in the data stream.
+
 ## Acronyms:
 - **DHI**:  Diffuse Horizontal Irradiance
 - **DNI**: Direct Normal Irradiance
