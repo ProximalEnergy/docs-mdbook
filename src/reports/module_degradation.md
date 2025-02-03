@@ -6,7 +6,9 @@ This report is designed to characterize the performance of the modules using the
 
 After filtering, the performance of each combiner is characterized through the following formula:
 
-$$ \text{DC Performance} = 1 - \frac{E*\text{modeled} - E*\text{actual}}{E\_\text{modeled}} $$
+$$
+\text{DC Performance} = 1 - \frac{E_\text{modeled} - E_\text{actual}}{E_\text{modeled}}
+$$
 
 Where:
 
