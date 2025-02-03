@@ -41,6 +41,9 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
+      - name: Build with Cargo
+        run : |
+          cargo build --release
       - name: Build with mdBook
         run: mdbook build
       - name: Upload artifact
