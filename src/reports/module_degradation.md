@@ -6,11 +6,13 @@ This report is designed to characterize the performance of the modules using the
 
 After filtering, the performance of each combiner is characterized through the following formula:
 
-$$ \text{DC Performance} = 1 - \frac{E*\text{modeled} - E*\text{actual}}{E\_\text{modeled}} $$
+$$
+\text{DC Performance} = 1 - \frac{E_\text{modeled} - E_\text{actual}}{E_\text{modeled}}
+$$
 
 Where:
 
-- $E_\text{modeled}$ is the expected energy production of the combiner, detailed in the [PV Model Overview](pv_model_overview.md). $E_\text{modeled}$ is representative of the warranted degradation curve of the modules at the time of analysis.
+- $E_\text{modeled}$ is the expected energy production of the combiner, detailed in the [PV Model Overview](../pv_performance/pv_model_overview.md). $E_\text{modeled}$ is representative of the warranted degradation curve of the modules at the time of analysis.
 - $E_\text{actual}$ is the actual energy production of the combiner, calculated as the combiner current × inverter DC voltage.
 
 The resulting metric is representative of the performance of the modules, with 100% indicating that the modules are performing at the expected level.
@@ -21,9 +23,13 @@ Unlike the [DC Amperage report](dc_amperage.md), the module degradation report i
 
 #### Clearsky Filters
 
-- Minimum POA: 200 W/m^2^
-- Maximum POA Derivative: 1 W/m^2^/minute
-- Maximum POA Derivative Standard Deviation: 1 W/m^2^/minute
+- Minimum POA: 250 W/m²
+- Maximum POA Derivative: 2 W/m²/minute
+- Standard Deviation filters
+  - Maximum POA Standard Deviation: 20 W/m²
+  - Maximum POA Derivative Standard Deviation: 0.25 W/m²/minute
+  - To filter on standard deviation and derivative standard deviation, both conditions must be met to exclude data. All other conditions are applied individually.
+- POA sensors on errant trackers are excluded analytically
 - At least 1 hour of clearsky-filtered data
 
 #### Performance-Based Filters
@@ -32,11 +38,11 @@ Unlike the [DC Amperage report](dc_amperage.md), the module degradation report i
   - This ensures the inverter is online and not AC clipping
 - Inverter module voltages are within 5V of each other (as applicable)
   - Since combiner power must be calculated as (combiner current) × (inverter DC voltage), the module voltages must be within a narrow band to ensure that the voltage is representative of the combiners.
-- [Combiner DC fuse health](../kpi/combiner_fuse_health.md) is at least 99% of the project nonzero mean per day.
+- [Combiner DC Field Health](../kpi/combiner_fuse_health.md) is at least 95% of the project nonzero mean per day.
   - If a combiner fails the fuse health filter, it is removed from the analysis.
-- [Tracker position deviating from setpoint](../kpi/tracker_kpis.md) is less than 5° on average per day.
-- [Tracker setpoint deviating from median](../kpi/tracker_kpis.md) is less than 5° on average per day.
-  - Both tracker filters are applied to entire blocks at once. If a block fails the analysis, all combiners on the block are excluded for that day.
+- [Tracker position deviating from setpoint](../kpi/tracker_kpis.md) is less than 1° on average per day.
+- [Tracker setpoint deviating from median](../kpi/tracker_kpis.md) is less than 1° on average per day
+  - Both tracker filters are applied to entire blocks. If a block fails the analysis, all combiners on the block are excluded for that day.
 
 #### Other
 
