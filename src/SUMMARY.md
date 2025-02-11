@@ -14,7 +14,7 @@
 
 - [KPI Overview](./kpi/kpi_overview.md)
   - [Combiner DC Field Health](./kpi/combiner_fuse_health.md)
-  - [Tracker KPIs](./kpi/tracker_kpis.md)
+  - [Trackers](./kpi/trackers.md)
 
 # Reports
 
