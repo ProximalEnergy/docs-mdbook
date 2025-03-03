@@ -16,8 +16,6 @@ By default all reported values below are:
 
 ## Soiling Sensor Uncertainty
 
-Looking at the image, I notice there are actually two tables. I'll help you format the first table (the system configuration table) in the markdown format you showed, since it contains more complete information:
-
 | Sensor                  | Measurement Uncertainty | Reference            |
 |-------------------------|-------------------------|----------------------|
 | Optical                 | ±4-7% (relative)        | [2](#2)              |
