@@ -20,7 +20,7 @@
 
 - [Reports Overview](./reports/reports_overview.md)
   - [DC Amperage Report](./reports/dc_amperage.md)
-  - [Module Degradation Report](./reports/module_degradation.md)
+  - [Module State of Health Report](./reports/module_state_of_health.md)
 
 # PV Performance Modeling
 

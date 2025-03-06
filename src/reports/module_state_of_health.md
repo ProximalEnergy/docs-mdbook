@@ -1,4 +1,4 @@
-# Module Degradation Report
+# Module State of Health Report
 
 ## Overview
 
@@ -19,7 +19,7 @@ The resulting metric is representative of the performance of the modules, with 1
 
 ## Filters
 
-Unlike the [DC Amperage report](dc_amperage.md), the module degradation report is not capable of user-defined filters. Instead, the report has a defined set of filters that are applied to the data, and the analysis is automatically generated on a daily basis. In addition to clearsky filters, several performance-based filters are applied to ensure that the analysis is only performed on combiners that can be considered representative of high performance.
+Unlike the [DC Amperage report](dc_amperage.md), the module state of health report is not capable of user-defined filters. Instead, the report has a defined set of filters that are applied to the data, and the analysis is automatically generated on a daily basis. In addition to clearsky filters, several performance-based filters are applied to ensure that the analysis is only performed on combiners that can be considered representative of high performance.
 
 #### Clearsky Filters
 
@@ -56,7 +56,7 @@ Unlike the [DC Amperage report](dc_amperage.md), the module degradation report i
 
 ## Outputs
 
-Outputs are available for each combiner, as well as various summary statistics. Graphics are available on the project level, individual combiner level, and aggregates for inverter and circuit level rollups. Combiner-level graphics are colored based on the capacity and bin classification of modules associated with each combiner.
+Outputs are available for each combiner, as well as various summary statistics. Graphics are available on the project level, individual combiner level, and aggregates for inverter and circuit level roll-ups. Combiner-level graphics are colored based on the capacity and bin classification of modules associated with each combiner.
 On the GIS tab, the report is available on a combiner-level basis.
 
 ## Caveats
