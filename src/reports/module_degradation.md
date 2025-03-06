@@ -26,7 +26,7 @@ Unlike the [DC Amperage report](dc_amperage.md), the module degradation report i
 - Minimum POA: 250 W/m²
 - Maximum POA Derivative: 2 W/m²/minute
 - Standard Deviation filters
-  - Maximum POA Standard Deviation: 20 W/m²
+  - Maximum POA Standard Deviation: 7.5 W/m²
   - Maximum POA Derivative Standard Deviation: 0.25 W/m²/minute
   - To filter on standard deviation and derivative standard deviation, both conditions must be met to exclude data. All other conditions are applied individually.
 - POA sensors on errant trackers are excluded analytically
