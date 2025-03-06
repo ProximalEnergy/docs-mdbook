@@ -1,9 +1,11 @@
-# Combiner Fuse Health
+# Combiner Field Health
 
 ## Description
-The Combiner Fuse Health KPI is a measure of the DC health of a project calculated using only combiner current data. Each combiner is given a daily score from 0 to 1, with 1 indicating the healthiest combiners on a project.
+
+The Combiner Field Health KPI is a measure of the DC health of a project calculated using only combiner current data. Each combiner is given a daily score from 0 to 1, with 1 indicating the healthiest combiners on a project.
 
 ## Methodology
+
 1. Pull DC combiner current for each combiner box on a 5-minute basis.
 2. Normalize the current for each combiner against its own DC capacity.
 3. Identify the "ideal" combiner as the 99th percentile of all combiner normalized current values. 99% chosen as the threshold to avoid outliers.
