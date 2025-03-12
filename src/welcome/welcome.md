@@ -8,4 +8,5 @@ Welcome to Proximal Energy's documentation website. This website is intended to 
 
 ## Hints
 
+- The entire documentation set can be exported as PDF by clicking on the printer icon in the top right hand corner of the page.
 - You can press the left and right arrow keys on your keyboard to navigate to the previous and next page respectively.
