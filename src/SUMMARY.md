@@ -31,6 +31,8 @@
     - [Plane of Array Irradiance](./pv_performance/simulation/plane_of_array_irradiance.md)
     - [Effective Irradiance](./pv_performance/simulation/effective_plane_of_array_irradiance.md)
     - [DC System Losses](./pv_performance/simulation/dc_system_losses.md)
+      - [PV Module Definition](./pv_performance/simulation/dc_system_losses/pv_module.md)
+      - [Degradation](./pv_performance/simulation/dc_system_losses/degradation.md)
     - [AC System Losses](./pv_performance/simulation/ac_system_losses.md)
   - [Quality Control Docs](./pv_performance/qc/quality_control.md)
     - [Soiling Sensors](./pv_performance/qc/soiling.md)
