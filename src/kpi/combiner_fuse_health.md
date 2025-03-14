@@ -1,13 +1,14 @@
-# Combiner Field Health
+# Combiner Field Health KPI
 
 ## Description
 
-The Combiner Field Health KPI is a measure of the DC health of a project calculated using only combiner current data. Each combiner is given a daily score from 0 to 1, with 1 indicating the healthiest combiners on a project.
+The **Combiner Field Health KPI** measures the DC health of a project based on combiner current data. Each combiner receives a daily health score ranging from 0 to 1, where a score of 1 indicates the healthiest combiners on the project.
 
 ## Methodology
 
-1. Pull DC combiner current for each combiner box on a 5-minute basis.
-2. Normalize the current for each combiner against its own DC capacity.
-3. Identify the "ideal" combiner as the 99th percentile of all combiner normalized current values. 99% chosen as the threshold to avoid outliers.
-4. Normalize all ratios against the ideal combiner. This gives the ideal combiner a score of 1.0, and all other combiners a score up to 1.0.
-5. Calculate the daily mean of all combiner scores. This gives the normalized fuse health score per combiner box per day.
+1. **Retrieve DC combiner current data** for each combiner box on a 5-minute interval. The data is filtered to focus on the time window from 11:30 AM to 12:30 PM to capture peak irradiance conditions.
+2. **Normalize each combiner's current** against its own DC capacity to account for differences in combiner size.
+3. **Identify the "ideal" combiner** by calculating the 99th percentile of all normalized combiner currents. The 99% threshold is chosen to exclude outliers and focus on typical combiner performance.
+4. **Normalize all combiners' ratios** against the ideal combiner. This gives the ideal combiner a score of 1.0, with all other combiners having a score ranging from 0 to 1. Outliers may exceed a score of 1.0.
+5. **Calculate the daily mean score** of each combiner trace to calculate the overall DC Field Health for each combiner on that day.
+6. **Calculate the mean of all combiner scores** to derive the overall DC Field Health for the project on that day.
