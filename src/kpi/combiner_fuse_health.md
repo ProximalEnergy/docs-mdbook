@@ -1,5 +1,7 @@
 # Combiner Field Health KPI
 
+_CONFIDENTIAL - Prepared for Longroad Energy & First Solar_
+
 ## Description
 
 The **Combiner Field Health KPI** measures the DC health of a project based on combiner current data. Each combiner receives a daily health score ranging from 0 to 1, where a score of 1 indicates the healthiest combiners on the project.
@@ -14,5 +16,13 @@ The **Combiner Field Health KPI** measures the DC health of a project based on c
    ![alt text](../assets/kpi/combiner_fuse_health/img_3.png)
 4. **Normalize all combiners' ratios** against the ideal combiner. This gives the ideal combiner a score of 1.0, with all other combiners having a score ranging from 0 to 1. Outliers may exceed a score of 1.0.  
    ![alt text](../assets/kpi/combiner_fuse_health/img_4.png)
-5. **Calculate the daily mean score** of all combiner health scores to derive the overall DC health for the project on that day.  
+5. **Calculate the daily mean score** of each combiner trace to calculate the overall DC Field Health for each combiner on that day.
    ![alt text](../assets/kpi/combiner_fuse_health/img_5.png)
+6. **Calculate the mean of all combiner scores** to derive the overall DC Field Health for the project on that day.
+
+<br>
+For the Module State of Health report, the combiner fuse health score is used as an input to filter for combiners with a score of at least 97.5% of the mean nonzero score. For the above example day, the mean nonzero score is 0.926.
+
+![alt text](../assets/kpi/combiner_fuse_health/img_6.png)
+
+83.3% of combiners pass this filter on this day.
