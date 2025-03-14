@@ -38,7 +38,7 @@ Unlike the [DC Amperage report](dc_amperage.md), the module state of health repo
   - This ensures the inverter is online and not AC clipping
 - Inverter module voltages are within 5V of each other (as applicable)
   - Since combiner power must be calculated as (combiner current) × (inverter DC voltage), the module voltages must be within a narrow band to ensure that the voltage is representative of the combiners.
-- [Combiner DC Field Health](../kpi/combiner_fuse_health.md) is at least 95% of the project nonzero mean per day.
+- [Combiner DC Field Health](../kpi/combiner_fuse_health.md) is at least 97.5% of the project nonzero mean per day.
   - If a combiner fails the fuse health filter, it is removed from the analysis.
 - [Tracker position deviating from setpoint](../kpi/trackers.md#position-deviation-from-setpoint) is less than 1° on average per day.
 - [Tracker setpoint deviating from median](../kpi/trackers.md#setpoint-deviation-from-median) is less than 1° on average per day
