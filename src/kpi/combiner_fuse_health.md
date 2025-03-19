@@ -1,6 +1,6 @@
 # Combiner Field Health KPI
 
-_CONFIDENTIAL - Prepared for Longroad Energy & First Solar_
+_CONFIDENTIAL - Prepared for Longroad Energy_
 
 ## Description
 
