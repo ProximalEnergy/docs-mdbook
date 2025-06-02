@@ -21,6 +21,8 @@
 - [Reports Overview](./reports/reports_overview.md)
   - [DC Amperage Report](./reports/dc_amperage.md)
   - [Module State of Health Report](./reports/module_state_of_health.md)
+  - [Inverter Availability Report](./reports/inverter_availability.md)
+  - [Tracker Availability Report](./reports/tracker_availability.md)
 
 # PV Performance Modeling
 
