@@ -39,3 +39,7 @@
   - [Quality Control Docs](./pv_performance/qc/quality_control.md)
     - [Soiling Sensors](./pv_performance/qc/soiling.md)
   - [Measurement Uncertainty](./pv_performance/uncertainty/uncertainty.md)
+
+-----------
+
+[Changelog](./changelog/changelog.md)
