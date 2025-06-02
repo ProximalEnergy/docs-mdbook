@@ -1,18 +1,42 @@
-# How to edit locally:
-- Download rustup `brew install rustup`
-  - This command also automatically installs cargo which is rust's package manager
-- Navigate to this directory in your terminal
-- Add mdbook to your project by running `cargo add mdbook`
-- Add mdbook-mermaid by running `cargo add mdbook-mermaid`
-- Serve a local copy by running `mdbook serve --open`
-- Make sure to make edits to the folder and files through `SUMMARY.md` as cargo will automatically update your file structure based off of what is in your `SUMMARY.md` file
+# Proximal Energy Documentation
 
-# CI/CD
+## Getting Started
+
+- Download `rustup` by running `brew install rustup`. This command also installs `cargo` which is Rust's package manager
+- Navigate to this directory in your terminal.
+- Run `cargo sync` to install the dependencies.
+- Run `mdbook serve --open` to serve the book locally!
+
+## Adding New Pages
+
+- To create new pages, add a new section to `SUMMARY.md`. `mdBook` will automatically update your file structure based off of what is in your `SUMMARY.md` file.
+- After a new Markdown file is generated you can add content to it.
+
+## CI/CD
+
 - The CI/CD pipeline is set up to build the book and push it to via github pages
 - Any push to main will trigger a build and republish of the documentation book
 
+## Updating the Changelog
 
-# Setting Up `mdbook`
+- To update the changelog, edit the `changelog/changelog.md` file.
+- Run `git log --since="<start_date>" --until="<end_date>" --pretty=format:"%h %s%n%b%n" | pbcopy` to copy the `git log` outputs of your desired repository to your clipboard.
+- Paste the clipboard contents into an LLM to generate a changelog. The prompt below is a good starting point.
+
+```
+You are a helpful assistant that generates a changelog for a given codebase.
+
+You will be given a list of commits and their descriptions.
+
+Please generate a changelog highlighting new features, bug fixes, and other changes. This changelog will be user facing, so don't include any technical details such as explicit code changes or issue tracking numbers. Use a professional but exciting tone and be concise. Do not use emojis. Generate the changelog in raw markdown format with some headers and list items. The section headers should be h3 tags.
+
+Below are the commits and their descriptions:
+
+<git commits>
+```
+
+
+## Alternative Setup
 
 Follow these steps to set up `mdbook` on your system:
 
