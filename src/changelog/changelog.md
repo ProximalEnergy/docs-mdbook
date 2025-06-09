@@ -1,5 +1,16 @@
 # Changelog
 
+## 2025-06-09
+
+### New Features
+
+- **Weather & Forecast**: Improved display and added appropriate attribution to OpenWeatherMap.
+
+### Bug Fixes
+
+- **DC Amperage Report**: Improved error handling to display feedback to user if the report fails to complete.
+- **CMMS Tab**: Corrected error handling that would cause the page to crash.
+
 ## 2025-06-02
 
 ### New Features
