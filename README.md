@@ -21,6 +21,7 @@
 
 - To update the changelog, edit the `changelog/changelog.md` file.
 - Run `git log --since="<start_date>" --until="<end_date>" --pretty=format:"%h %s%n%b%n" | pbcopy` to copy the `git log` outputs of your desired repository to your clipboard.
+- Or `git log --since="7 days ago" --pretty=format:"%h %s%n%b%n" | pbcopy`
 - Paste the clipboard contents into an LLM to generate a changelog. The prompt below is a good starting point.
 
 ```
