@@ -29,12 +29,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      MDBOOK_VERSION: 0.4.43
-      MDBOOK_MERMAID_VERSION: 0.14.1
-      MDBOOK_KATEX_VERSION: 0.9.2
+      MDBOOK_VERSION: 0.4.51
+      MDBOOK_MERMAID_VERSION: 0.15.0
+      MDBOOK_KATEX_VERSION: 0.9.4
     steps:
       - uses: actions/checkout@v4
-      - name: Install mdBook
+      - name: Install dependencies
         run: |
           curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf -y | sh
           rustup update
@@ -45,7 +45,7 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
       - name: Build with Cargo
-        run : |
+        run: |
           cargo build --release
       - name: Build with mdBook
         run: mdbook build
