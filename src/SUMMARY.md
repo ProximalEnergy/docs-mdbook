@@ -13,8 +13,11 @@
 # Key Performance Indicators
 
 - [KPI Overview](./kpi/kpi_overview.md)
-  - [Combiner DC Field Health](./kpi/combiner_fuse_health.md)
-  - [Trackers](./kpi/trackers.md)
+  - [PV](./kpi/pv.md)
+    - [Combiner DC Field Health](./kpi/pv/combiner_fuse_health.md)
+    - [Trackers](./kpi/pv/trackers.md)
+  - [BESS](./kpi/bess.md)
+    - [State of Charge](./kpi/bess/state_of_charge.md)
 
 # Reports
 
