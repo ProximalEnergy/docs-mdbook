@@ -2,12 +2,11 @@
 
 ## 2025-06-16
 
-## New Features
+### New Features
 - **Real Time Page**:  Added a x-axis labels to graphs on the real time page
 
-## Bug Fixes
+### Bug Fixes
 - **GIS Maps**:  Hovering over a met station no longer shows PCS data
-
 
 ## 2025-06-09
 
