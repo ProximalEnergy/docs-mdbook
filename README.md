@@ -3,8 +3,9 @@
 ## Getting Started
 
 - Download `rustup` by running `brew install rustup`. This command also installs `cargo` which is Rust's package manager
+- Install the rust toolchain `rustup-init` .
 - Navigate to this directory in your terminal.
-- Run `cargo sync` to install the dependencies.
+- Run `cargo build` to install the dependencies.
 - Run `mdbook serve --open` to serve the book locally!
 
 ## Adding New Pages
@@ -36,7 +37,6 @@ Below are the commits and their descriptions:
 <git commits>
 ```
 
-
 ## Alternative Setup
 
 Follow these steps to set up `mdbook` on your system:
@@ -44,44 +44,58 @@ Follow these steps to set up `mdbook` on your system:
 ### 1. Remove Any Existing Rust Installation (Optional)
 
 If you have an existing Rust installation and want to start fresh, you can remove it with:
+
 ```bash
 rm -rf ~/.cargo ~/.rustup
 ```
+
 ### 2. Install Rust Using Rustup
+
 Run the following command to install Rust and Cargo:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
+
 ### 3. Add Cargo to Your Path (If Not Automatically Added)
+
 Ensure Cargo's bin directory is in your PATH:
 
 ```bash
 echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 ```
+
 ### 4. Initialize a New Cargo Project (If Needed)
+
 If you don’t already have a Cargo.toml file, initialize a new Cargo project:
 
 ```bash
 cargo init
 ```
+
 ### 5. Add mdbook as a Dependency
+
 Inside your project directory, add mdbook as a dependency:
 
 ```bash
 cargo add mdbook
 ```
+
 ### 6. Install mdbook Globally
+
 To make mdbook accessible globally, install it with Cargo:
 
 ```bash
 cargo install mdbook
 ```
+
 ### 7. Serve the Book
+
 Run the following command to serve your mdbook locally:
 
 ```bash
 mdbook serve --open
 ```
+
 This will start a local server, automatically open your browser, and display your book at http://localhost:3000.
