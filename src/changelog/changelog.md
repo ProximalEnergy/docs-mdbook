@@ -1,5 +1,19 @@
 # Changelog
 
+## 2025-06-30
+
+### New Features
+
+- Added **real-time data support for BESS (Battery Energy Storage Systems)**, enhancing visibility and operational insights.
+
+### Improvements
+
+- Refactored PV equipment logic for improved performance and maintainability.
+
+### Bug Fixes
+
+- Fixed an issue with the API endpoint for updating user projects in the admin module.
+
 ## 2025-06-23
 
 ### New Features

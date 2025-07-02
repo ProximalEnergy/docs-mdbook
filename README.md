@@ -5,7 +5,7 @@
 - Download `rustup` by running `brew install rustup`. This command also installs `cargo` which is Rust's package manager
 - Install the rust toolchain `rustup-init` .
 - Navigate to this directory in your terminal.
-- Run `cargo sync` to install the dependencies.
+- Run `cargo build` to install the dependencies.
 - Run `mdbook serve --open` to serve the book locally!
 
 ## Adding New Pages
