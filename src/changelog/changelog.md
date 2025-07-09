@@ -1,5 +1,11 @@
 # Changelog
 
+## 2025-07-07
+
+### Improvements
+
+- Enhanced the KPI project comparison plot to display full legend names, making it easier to identify and compare different projects.
+
 ## 2025-06-30
 
 ### New Features

@@ -20,17 +20,16 @@
 
 ## Updating the Changelog
 
-- To update the changelog, edit the `changelog/changelog.md` file.
-- Run `git log --since="<start_date>" --until="<end_date>" --pretty=format:"%h %s%n%b%n" | pbcopy` to copy the `git log` outputs of your desired repository to your clipboard.
-- Or `git log --since="7 days ago" --pretty=format:"%h %s%n%b%n" | pbcopy`
+- Run `git log --since="<start_date>" --until="<end_date>" --pretty=format:"%h %s%n%b%n" | pbcopy` in the `web-app` repo to copy the `git log` outputs to your clipboard. Note that `--since` is inclusive and `--until` is exclusive. If you are updating the changelog on a Monday, you can also run `git log --since="7 days ago" --pretty=format:"%h %s%n%b%n" | pbcopy` to get the last 7 days of commits.
 - Paste the clipboard contents into an LLM to generate a changelog. The prompt below is a good starting point.
+- To update the changelog, edit the `changelog/changelog.md` file.
 
 ```
 You are a helpful assistant that generates a changelog for a given codebase.
 
 You will be given a list of commits and their descriptions.
 
-Please generate a changelog highlighting new features, bug fixes, and other changes. This changelog will be user facing, so don't include any technical details such as explicit code changes or issue tracking numbers. Use a professional but exciting tone and be concise. Do not use emojis. Generate the changelog in raw markdown format with some headers and list items. The section headers should be h3 tags.
+Please generate a changelog with sections for New Features, Improvements, and Bug Fixes. This changelog will be user facing, so don't include any technical details such as explicit code changes or issue tracking numbers. Use a professional but exciting tone and be concise. Do not use emojis. Generate the changelog in raw markdown format with section headers and list items. The section headers should be h3 tags.
 
 Below are the commits and their descriptions:
 
