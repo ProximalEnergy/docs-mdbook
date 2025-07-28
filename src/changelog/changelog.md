@@ -1,5 +1,22 @@
 # Changelog
 
+## 2025-07-28
+
+### New Features
+
+- Unveiling the new Portfolio Calendar View! Visualize your project timelines and key dates across your entire portfolio at a glance.
+- Introducing dynamic Single Line Diagrams for projects, providing a clear visual representation of your electrical systems.
+- Welcome the brand-new Oriden theme for a fresh, customized look and feel.
+- Customize your workspace with the vibrant new Lightsource theme.
+
+### Improvements
+
+- Enhanced performance and stability when processing large datasets, ensuring a smoother and more reliable experience.
+
+### Bug Fixes
+
+- Resolved an edge-case issue to improve overall platform stability.
+
 ## 2025-07-07
 
 ### Improvements

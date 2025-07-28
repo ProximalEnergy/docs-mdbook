@@ -20,7 +20,7 @@
 
 ## Updating the Changelog
 
-- Run `git log --since="<start_date>" --until="<end_date>" --pretty=format:"%h %s%n%b%n" | pbcopy` in the `web-app` repo to copy the `git log` outputs to your clipboard. Note that `--since` is inclusive and `--until` is exclusive. If you are updating the changelog on a Monday, you can also run `git log --since="7 days ago" --pretty=format:"%h %s%n%b%n" | pbcopy` to get the last 7 days of commits.
+- Run `git log --since="<start_date>" --until="<end_date>" --pretty=format:"%h %s%n%b%n" | pbcopy` in the `web-app` on the `main` branch repo to copy the `git log` outputs to your clipboard. Note that `--since` is inclusive and `--until` is exclusive. If you are updating the changelog on a Monday, you can also run `git log --since="7 days ago" --pretty=format:"%h %s%n%b%n" | pbcopy` to get the last 7 days of commits.
 - Paste the clipboard contents into an LLM to generate a changelog. The prompt below is a good starting point.
 - To update the changelog, edit the `changelog/changelog.md` file.
 
