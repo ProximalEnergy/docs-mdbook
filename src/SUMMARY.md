@@ -16,8 +16,12 @@
   - [PV](./kpi/pv.md)
     - [Combiner DC Field Health](./kpi/pv/combiner_fuse_health.md)
     - [Trackers](./kpi/pv/trackers.md)
+    - [Specific Yield](./kpi/pv/specific_yield.md)
+    - [Performance Ratio](./kpi/pv/performance_ratio.md)
   - [BESS](./kpi/bess.md)
     - [State of Charge](./kpi/bess/state_of_charge.md)
+    - [Depth of Discharge](./kpi/bess/depth_of_discharge.md)
+    - [Project Cycle Count](./kpi/bess/project_cycle_count.md)
 
 # Reports
 
